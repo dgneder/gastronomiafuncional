@@ -1,68 +1,81 @@
+"use client";
+import { useEffect, useState } from "react";
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
-//import { MetaPixel } from "./components/MetaPixel";
+import 'aos/dist/aos.css'; // Importa o CSS global para as animações
+import AOS from 'aos';
 
-const geistSans = Geist({
+// Configuração das fontes
+const geistSans = localFont({
+  src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
-  subsets: ["latin"],
+  weight: "100 900",
 });
-
-const geistMono = Geist_Mono({
+const geistMono = localFont({
+  src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: "100 900",
 });
 
-export const metadata: Metadata = {
-  title: "Gastronomia Funcional",
-  description: "Receitas funcionais, sobremesas, trufas e muito mais.",
-};
-const META_PIXEL_ID = "537560855757532";
+// ID do Google Tag Manager
+const GTM_ID = "GTM-T78N97M8";
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [gtmLoaded, setGtmLoaded] = useState(false);
+
+  useEffect(() => {
+    // Inicializa o AOS com as configurações desejadas
+    AOS.init({
+      duration: 1000,
+      offset: 120,
+      easing: "ease-in-out",
+      delay: 100,
+      once: true,
+    });
+
+    // Carrega o GTM dinamicamente APÓS a página estar interativa
+    const loadGTM = () => {
+      if (!gtmLoaded) {
+        const script = document.createElement("script");
+        script.async = true;
+        script.src = `https://www.googletagmanager.com/gtm.js?id=${GTM_ID}`;
+        document.head.appendChild(script);
+        setGtmLoaded(true);
+      }
+    };
+
+    // Atraso para carregar o GTM após a interação do usuário (melhor para PageSpeed)
+    window.addEventListener("scroll", loadGTM, { once: true });
+    window.addEventListener("mousemove", loadGTM, { once: true });
+    window.addEventListener("touchstart", loadGTM, { once: true });
+
+    return () => {
+      window.removeEventListener("scroll", loadGTM);
+      window.removeEventListener("mousemove", loadGTM);
+      window.removeEventListener("touchstart", loadGTM);
+    };
+  }, [gtmLoaded]);
+
   return (
-      <html lang="pt-BR">
-      <head>
-        {/* META PIXEL “NA UNHA” */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              !function(f,b,e,v,n,t,s){
-                if(f.fbq) return;
-                n = f.fbq = function(){
-                  n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-                };
-                if(!f._fbq) f._fbq = n;
-                n.push = n;
-                n.loaded = !0;
-                n.version = '2.0';
-                n.queue = [];
-                t = b.createElement(e); t.async = !0;
-                t.src = 'https://connect.facebook.net/en_US/fbevents.js';
-                s = b.getElementsByTagName(e)[0];
-                s.parentNode.insertBefore(t, s);
-              }(window, document, 'script');
-
-              fbq('init', '${META_PIXEL_ID}');
-              fbq('track', 'PageView');
-            `,
-          }}
-        />
-
+    <html lang="pt-BR">
+      <head></head>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        {/* Google Tag Manager (noscript) */}
         <noscript>
-          <img
-            alt="fb-pixel"
-            height="1"
-            width="1"
-            style={{ display: "none" }}
-            src={`https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1`}
-          />
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          ></iframe>
         </noscript>
-      </head>
-      <body>{children}</body>
+        {children}
+      </body>
     </html>
   );
 }

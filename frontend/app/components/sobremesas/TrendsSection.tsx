@@ -49,7 +49,7 @@ const TrendsSection: React.FC = () => {
             <div>
               <h3 className="text-lg font-semibold text-pink-700">Buscas em Explosão</h3>
               <p className="text-base text-gray-700">
-                Termos como "sobremesas saudáveis", "low carb" e "sem açúcar" estão entre os mais pesquisados no Google nos últimos anos.
+                Termos como &quot;sobremesas saudáveis&quot;, &quot;low carb&quot; e &quot;sem açúcar&quot; estão entre os mais pesquisados no Google nos últimos anos.
               </p>
             </div>
           </div>
