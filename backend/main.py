@@ -14,6 +14,9 @@ app = FastAPI(title="API Gastronomia Funcional")
 origins = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "https://gastronomiafuncional.com",
+    "https://www.gastronomiafuncional.com",
+    "https://frontend-app-whcg8.ondigitalocean.app",
 ]
 
 app.add_middleware(
