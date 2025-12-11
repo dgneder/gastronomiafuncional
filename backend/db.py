@@ -5,7 +5,7 @@ from sqlalchemy.orm import sessionmaker, DeclarativeBase
 # Pega URL do ambiente, ou usa padrão
 DATABASE_URL = os.getenv(
     "DATABASE_URL",
-    "postgresql+asyncpg://gastronomia_user:senha_bem_forte_aqui@localhost:5432/gastronomia_db",
+    "sqlite+aiosqlite:///./gastronomia.db",
 )
 
 class Base(DeclarativeBase):
