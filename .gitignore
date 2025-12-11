@@ -1,0 +1,26 @@
+# Node / Next
+node_modules
+.npm
+.next
+out
+
+# Env
+.env
+.env.local
+.env.development
+.env.production
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.sqlite3
+.venv
+venv
+.env/
+
+# IDE
+.vscode
+.idea
+.DS_Store
