@@ -1,12 +1,10 @@
-"use client";
-
-import { useEffect } from "react";
+import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import "aos/dist/aos.css";
-import AOS from "aos";
+import { GoogleTagManager } from "@next/third-parties/google";
+import { AosInit } from "./components/AosInit";
+import MetaPixel from "./components/MetaPixel";
 
-// Fontes
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -19,58 +17,43 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-// NOVO ID do Google Tag Manager
 const GTM_ID = "GTM-NRQ2GVRZ";
+const META_PIXEL_ID = "537560855757532";
+
+export const metadata: Metadata = {
+  title: "Gastronomia Funcional",
+  description: "Receitas funcionais para uma vida saudável",
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  useEffect(() => {
-    // Inicializa AOS
-    AOS.init({
-      duration: 1000,
-      offset: 120,
-      easing: "ease-in-out",
-      delay: 100,
-      once: true,
-    });
-  }, []);
-
   return (
-    <html lang="pt-BR">
-      <head>
-        {/* Google Tag Manager */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-              })(window,document,'script','dataLayer','${GTM_ID}');
-            `,
-          }}
-        />
-        {/* End Google Tag Manager */}
-      </head>
+    <html lang="pt-BR" suppressHydrationWarning>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        {/* AOS (client) */}
+        <AosInit />
 
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {/* Google Tag Manager (noscript) */}
+        {/* Meta Pixel (client) */}
+        <MetaPixel pixelId={META_PIXEL_ID} />
+
+        {/* fallback no-script do pixel */}
         <noscript>
-          <iframe
-            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
-            height="0"
-            width="0"
-            style={{ display: "none", visibility: "hidden" }}
+          <img
+            alt="fb-pixel"
+            height="1"
+            width="1"
+            style={{ display: "none" }}
+            src={`https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1`}
           />
         </noscript>
-        {/* End Google Tag Manager (noscript) */}
 
         {children}
+
+        {/* GTM (server-friendly) */}
+        <GoogleTagManager gtmId={GTM_ID} />
       </body>
     </html>
   );
