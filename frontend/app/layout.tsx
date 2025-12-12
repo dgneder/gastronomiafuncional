@@ -6,7 +6,7 @@ import "./globals.css";
 import "aos/dist/aos.css";
 import AOS from "aos";
 
-// Configuração das fontes
+// Fontes
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -19,8 +19,8 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-// ID do Google Tag Manager
-const GTM_ID = "GTM-T78N97M8";
+// NOVO ID do Google Tag Manager
+const GTM_ID = "GTM-NRQ2GVRZ";
 
 export default function RootLayout({
   children,
@@ -28,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   useEffect(() => {
-    // Inicializa o AOS
+    // Inicializa AOS
     AOS.init({
       duration: 1000,
       offset: 120,
@@ -41,23 +41,19 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <head>
-        {/* GOOGLE TAG MANAGER – SNIPPET OFICIAL ADAPTADO */}
+        {/* Google Tag Manager */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              (function(w,d,s,l,i){
-                w[l]=w[l]||[];
-                w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
-                var f=d.getElementsByTagName(s)[0],
-                    j=d.createElement(s),
-                    dl=l!='dataLayer'?'&l='+l:'';
-                j.async=true;
-                j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
-                f.parentNode.insertBefore(j,f);
+              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
               })(window,document,'script','dataLayer','${GTM_ID}');
             `,
           }}
         />
+        {/* End Google Tag Manager */}
       </head>
 
       <body
@@ -70,8 +66,9 @@ export default function RootLayout({
             height="0"
             width="0"
             style={{ display: "none", visibility: "hidden" }}
-          ></iframe>
+          />
         </noscript>
+        {/* End Google Tag Manager (noscript) */}
 
         {children}
       </body>
