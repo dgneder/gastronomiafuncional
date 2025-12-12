@@ -6,57 +6,30 @@ import FloatingNavBar from "@/app/components/sobremesas/FloatingNavBar";
 import FunctionalTags from "@/app/components/sobremesas/FunctionalTags";
 import { useTracking } from "@/app/hooks/useTracking";
 
-// dynamic imports
 const Hero = dynamic(() => import("@/app/components/sobremesas/Hero"));
-const Benefits = dynamic(() =>
-  import("@/app/components/sobremesas/Benefits")
-);
-const CourseContent = dynamic(() =>
-  import("@/app/components/sobremesas/CourseContent")
-);
-const Testimonials = dynamic(() =>
-  import("@/app/components/sobremesas/Testimonials")
-);
-const Guarantee = dynamic(() =>
-  import("@/app/components/sobremesas/Guarantee")
-);
+const Benefits = dynamic(() => import("@/app/components/sobremesas/Benefits"));
+const CourseContent = dynamic(() => import("@/app/components/sobremesas/CourseContent"));
+const Testimonials = dynamic(() => import("@/app/components/sobremesas/Testimonials"));
+const Guarantee = dynamic(() => import("@/app/components/sobremesas/Guarantee"));
 const FAQ = dynamic(() => import("@/app/components/sobremesas/FAQ"));
-const FinalCTA = dynamic(() =>
-  import("@/app/components/sobremesas/FinalCTA")
-);
+const FinalCTA = dynamic(() => import("@/app/components/sobremesas/FinalCTA"));
 const Footer = dynamic(() => import("@/app/components/sobremesas/Footer"));
-const TrendsSection = dynamic(() =>
-  import("@/app/components/sobremesas/TrendsSection")
-);
-const DessertBenefits = dynamic(() =>
-  import("@/app/components/sobremesas/DessertBenefits")
-);
-const CTASection = dynamic(() =>
-  import("@/app/components/sobremesas/CTASection")
-);
-const SocialProofSection = dynamic(() =>
-  import("@/app/components/sobremesas/SocialProofSection")
-);
-const VideoSectionOne = dynamic(() =>
-  import("@/app/components/sobremesas/VideoSectionOne")
-);
-const VideoSectionTwo = dynamic(() =>
-  import("@/app/components/sobremesas/VideoSectionTwo")
-);
-const VideoSectionThree = dynamic(() =>
-  import("@/app/components/sobremesas/VideoSectionThree")
-);
-const VideoSectionFour = dynamic(() =>
-  import("@/app/components/sobremesas/VideoSectionFour")
-);
+const TrendsSection = dynamic(() => import("@/app/components/sobremesas/TrendsSection"));
+const DessertBenefits = dynamic(() => import("@/app/components/sobremesas/DessertBenefits"));
+const CTASection = dynamic(() => import("@/app/components/sobremesas/CTASection"));
+const SocialProofSection = dynamic(() => import("@/app/components/sobremesas/SocialProofSection"));
+const VideoSectionOne = dynamic(() => import("@/app/components/sobremesas/VideoSectionOne"));
+const VideoSectionTwo = dynamic(() => import("@/app/components/sobremesas/VideoSectionTwo"));
+const VideoSectionThree = dynamic(() => import("@/app/components/sobremesas/VideoSectionThree"));
+const VideoSectionFour = dynamic(() => import("@/app/components/sobremesas/VideoSectionFour"));
 
 const SobremesasPage: React.FC = () => {
   const { trackViewContent } = useTracking();
 
   useEffect(() => {
     trackViewContent(
-      "Ebook Sobremesas Funcionais",
-      "ebook-sobremesas-001",
+      "Guia de Sobremesas Funcionais",
+      "guia-sobremesas-funcionais",
       37.00
     );
   }, []);

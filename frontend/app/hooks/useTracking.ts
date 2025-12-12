@@ -117,5 +117,40 @@ export function useTracking() {
     }
   }
 
-  return { trackViewContent, trackAddToCart, trackLead }
+  const trackPurchase = async (
+    contentId: string,
+    value: number
+  ) => {
+    const eventId = uuidv4()
+    const url = window.location.href
+
+    if (window.fbq) {
+      // @ts-ignore
+      window.fbq('track', 'Purchase', {
+        content_ids: [contentId],
+        content_type: 'product',
+        value: value,
+        currency: 'BRL'
+      }, { eventID: eventId })
+    }
+
+    try {
+      await fetch(`${API_URL}/api/tracking/purchase`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          event_id: eventId,
+          page_url: url,
+          content_id: contentId,
+          value: value,
+          fbc: getCookie('_fbc'),
+          fbp: getCookie('_fbp'),
+        })
+      })
+    } catch (error) {
+      console.error('CAPI Purchase error:', error)
+    }
+  }
+
+  return { trackViewContent, trackAddToCart, trackLead, trackPurchase }
 }

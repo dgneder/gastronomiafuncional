@@ -13,10 +13,8 @@ const Form: React.FC = () => {
     const email = formData.get("email") as string;
     const phone = formData.get("phone") as string;
 
-    // Dispara o evento Lead
     await trackLead(email, phone);
 
-    // Continua o submit normal para o webhook
     formRef.current?.submit();
   };
 
@@ -28,7 +26,6 @@ const Form: React.FC = () => {
       onSubmit={handleSubmit}
       className="space-y-6 bg-zinc-900 p-6 rounded-xl shadow-lg border border-pink-500"
     >
-      {/* Nome */}
       <div className="space-y-2">
         <label htmlFor="name-2" className="text-pink-400 font-semibold text-lg">
           Nome Completo
@@ -42,7 +39,6 @@ const Form: React.FC = () => {
         />
       </div>
 
-      {/* Email */}
       <div className="space-y-2">
         <label htmlFor="email-2" className="text-pink-400 font-semibold text-lg">
           E-mail
@@ -57,7 +53,6 @@ const Form: React.FC = () => {
         />
       </div>
 
-      {/* Celular */}
       <div className="space-y-2">
         <label htmlFor="tel-2" className="text-pink-400 font-semibold text-lg">
           Celular
@@ -82,7 +77,6 @@ const Form: React.FC = () => {
         </div>
       </div>
 
-      {/* Botão CTA */}
       <button
         type="submit"
         className="w-full py-4 bg-pink-600 text-white font-bold uppercase rounded-lg hover:bg-pink-700 transition-all duration-300 shadow-md text-lg tracking-wide"
