@@ -49,6 +49,15 @@ export default function RootLayout({
             src={`https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1`}
           />
         </noscript>
+           <noscript>
+          <img
+            alt="fb-pixel"
+            height="1"
+            width="1"
+            style={{ display: "none" }}
+            src={`https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=ViewContent&noscript=1`}
+          />
+        </noscript>
 
         {children}
 

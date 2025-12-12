@@ -2,14 +2,18 @@
 
 import Script from "next/script";
 
-type MetaPixelProps = {
-  pixelId: string;
-};
+declare global {
+  interface Window {
+    fbq?: (...args: any[]) => void;
+    _fbq?: any;
+    metaTrack?: (event: string, params?: Record<string, any>) => void;
+  }
+}
 
-export default function MetaPixel({ pixelId }: MetaPixelProps) {
+export default function MetaPixel({ pixelId }: { pixelId: string }) {
   return (
     <>
-      <Script id="meta-pixel" strategy="afterInteractive">
+      <Script id="meta-pixel-base" strategy="afterInteractive">
         {`
           !function(f,b,e,v,n,t,s){
             if(f.fbq) return;
@@ -29,6 +33,15 @@ export default function MetaPixel({ pixelId }: MetaPixelProps) {
 
           fbq('init', '${pixelId}');
           fbq('track', 'PageView');
+
+          // helper simples e seguro
+          window.metaTrack = function(event, params){
+            try {
+              if (typeof window.fbq === 'function') {
+                window.fbq('track', event, params || {});
+              }
+            } catch (e) {}
+          };
         `}
       </Script>
     </>
