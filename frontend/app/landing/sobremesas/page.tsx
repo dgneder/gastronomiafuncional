@@ -1,41 +1,11 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import dynamic from "next/dynamic";
 
 import LGPD from "@/app/components/sobremesas/LGPD";
 import FloatingNavBar from "@/app/components/sobremesas/FloatingNavBar";
 import FunctionalTags from "@/app/components/sobremesas/FunctionalTags";
-
-// Tipagem global pro fbq
-declare global {
-  interface Window {
-    fbq?: (...args: any[]) => void;
-  }
-}
-
-// Hookzinho pra garantir que o evento seja disparado mesmo se o fbq demorar a carregar
-function useFbqTrack(eventName: string, params?: Record<string, any>) {
-  useEffect(() => {
-    let tries = 0;
-    const maxTries = 20;
-    const delay = 250; // 0.25s
-
-    function fire() {
-      if (typeof window !== "undefined" && typeof window.fbq === "function") {
-        window.fbq("track", eventName, params || {});
-        // console.log("FBQ event fired:", eventName, params);
-      } else if (tries < maxTries) {
-        tries++;
-        setTimeout(fire, delay);
-      } else {
-        // console.warn("FBQ not available to fire event:", eventName);
-      }
-    }
-
-    fire();
-  }, [eventName]);
-}
 
 // dynamic imports
 const Hero = dynamic(() => import("@/app/components/sobremesas/Hero"));
@@ -88,12 +58,6 @@ const SobremesasPage: React.FC = () => {
     window.location.href = "https://seu-link-de-login.com";
   };
 
-  // ViewContent da landing
-  useFbqTrack("ViewContent", {
-    content_name: "Sobremesas Funcionais - Landing",
-    content_category: "sobremesas_funcionais",
-  });
-
   return (
     <div>
       <FloatingNavBar
@@ -135,4 +99,3 @@ const SobremesasPage: React.FC = () => {
 };
 
 export default SobremesasPage;
-

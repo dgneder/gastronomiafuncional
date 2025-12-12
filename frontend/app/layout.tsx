@@ -37,28 +37,8 @@ export default function RootLayout({
         <AosInit />
 
         {/* Meta Pixel (client) */}
-        <MetaPixel pixelId={META_PIXEL_ID} />
-
-        {/* fallback no-script do pixel */}
-        <noscript>
-          <img
-            alt="fb-pixel"
-            height="1"
-            width="1"
-            style={{ display: "none" }}
-            src={`https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1`}
-          />
-        </noscript>
-           <noscript>
-          <img
-            alt="fb-pixel"
-            height="1"
-            width="1"
-            style={{ display: "none" }}
-            src={`https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=ViewContent&noscript=1`}
-          />
-        </noscript>
-
+        <MetaPixel />
+        
         {children}
 
         {/* GTM (server-friendly) */}

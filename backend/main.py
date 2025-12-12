@@ -2,6 +2,7 @@ from typing import Optional
 
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from app.routers import tracking
 from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -9,6 +10,7 @@ from db import get_session, init_db
 from models import LeadDB
 
 app = FastAPI(title="API Gastronomia Funcional")
+app.include_router(tracking.router)
 
 # CORS para falar com o Next.js
 origins = [

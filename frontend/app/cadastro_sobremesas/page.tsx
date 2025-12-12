@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useEffect } from "react";
+import dynamic from "next/dynamic";
 import ScriptLoader from "@/app/components/cadastro_sobremesas/ScriptLoader";
 import ProgressBar from "@/app/components/cadastro_sobremesas/ProgressBar";
-import CountdownTimer from "@/app/components/cadastro_sobremesas/CountdownTimer";
 import SocialProof from "@/app/components/cadastro_sobremesas/SocialProof";
 import Benefits from "@/app/components/cadastro_sobremesas/Benefits";
 import SatisfactionGuarantee from "@/app/components/cadastro_sobremesas/SatisfactionGuarantee";
@@ -12,34 +11,18 @@ import SecuritySeal from "@/app/components/cadastro_sobremesas/SecuritySeal";
 import PersuasiveCTA from "@/app/components/cadastro_sobremesas/PersuasiveCTA";
 import Form from "@/app/components/cadastro_sobremesas/form";
 
-declare global {
-  interface Window {
-    metaTrack?: (event: string, params?: Record<string, any>) => void;
-  }
-}
+// ✅ Client-only: não renderiza no SSR (evita hydration mismatch)
+const CountdownTimer = dynamic(
+  () => import("@/app/components/cadastro_sobremesas/CountdownTimer"),
+  { ssr: false }
+);
 
 export default function CadastroSobremesasPremium() {
-  useEffect(() => {
-    // dispara só uma vez por sessão nessa página
-    const key = "atc_cadastro_sobremesas_fired";
-    if (sessionStorage.getItem(key)) return;
-    sessionStorage.setItem(key, "1");
-
-    // dá 300ms pro pixel ficar pronto
-    setTimeout(() => {
-      window.metaTrack?.("AddToCart", {
-        content_name: "Sobremesas Funcionais Premium",
-        content_ids: ["sobremesas-funcionais-premium"],
-        content_type: "product",
-        value: 37.0,
-        currency: "BRL",
-      });
-    }, 300);
-  }, []);
-
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-b from-pink-950 via-pink-900 to-zinc-900 text-zinc-100 px-4 py-10">
       <main className="bg-zinc-900 p-6 lg:p-8 rounded-2xl shadow-2xl w-full max-w-md border border-pink-400 space-y-6">
+        {/* ORDEM ORIGINAL PRESERVADA */}
+
         <ProgressBar progress={50} />
 
         <h1 className="text-2xl lg:text-3xl font-extrabold text-center text-pink-400">
@@ -48,14 +31,21 @@ export default function CadastroSobremesasPremium() {
 
         <ScriptLoader />
 
-        <CountdownTimer targetDate={new Date(Date.now() + 24 * 60 * 60 * 1000)} />
+        {/* ✅ Timer 24h (sem Date.now aqui) */}
+        <CountdownTimer hours={24} />
 
         <Form />
+
         <SocialProof />
+
         <Benefits />
+
         <SatisfactionGuarantee />
+
         <PriceIndicator originalPrice={97} discountedPrice={37} />
+
         <PersuasiveCTA />
+
         <SecuritySeal />
       </main>
     </div>
