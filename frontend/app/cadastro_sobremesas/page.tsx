@@ -19,12 +19,12 @@ const CountdownTimer = dynamic(
 );
 
 export default function CadastroSobremesasPremium() {
-  const { trackViewContent } = useTracking();
+  const { trackAddToCart } = useTracking();
 
   useEffect(() => {
-    trackViewContent(
-      "Cadastro Sobremesas Funcionais",
-      "checkout-sobremesas-001",
+    trackAddToCart(
+      "Ebook Sobremesas Funcionais",
+      "ebook-sobremesas-001",
       37.00
     );
   }, []);

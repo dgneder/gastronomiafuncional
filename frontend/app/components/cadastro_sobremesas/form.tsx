@@ -1,10 +1,31 @@
-import React from "react";
+"use client";
+import React, { useRef } from "react";
+import { useTracking } from "@/app/hooks/useTracking";
 
 const Form: React.FC = () => {
+  const { trackLead } = useTracking();
+  const formRef = useRef<HTMLFormElement>(null);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get("email") as string;
+    const phone = formData.get("phone") as string;
+
+    // Dispara o evento Lead
+    await trackLead(email, phone);
+
+    // Continua o submit normal para o webhook
+    formRef.current?.submit();
+  };
+
   return (
-    <form 
-      method="post" 
+    <form
+      ref={formRef}
+      method="post"
       action="https://webhook.sellflux.com/webhook/v2/form/lead/6efdd500b4f55cad1115dd4ae7d70184?redirect_url=https%3A%2F%2Fpay.hotmart.com%2FG99983616M%3Foff%3D2e04ld34%26checkoutMode%3D10"
+      onSubmit={handleSubmit}
       className="space-y-6 bg-zinc-900 p-6 rounded-xl shadow-lg border border-pink-500"
     >
       {/* Nome */}
