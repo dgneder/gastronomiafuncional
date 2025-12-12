@@ -1,15 +1,16 @@
 "use client";
-
-import React from "react";
+import React, { useEffect } from "react";
 import dynamic from "next/dynamic";
-
 import LGPD from "@/app/components/sobremesas/LGPD";
 import FloatingNavBar from "@/app/components/sobremesas/FloatingNavBar";
 import FunctionalTags from "@/app/components/sobremesas/FunctionalTags";
+import { useTracking } from "@/app/hooks/useTracking";
 
 // dynamic imports
 const Hero = dynamic(() => import("@/app/components/sobremesas/Hero"));
-const Benefits = dynamic(() => import("@/app/components/sobremesas/Benefits"));
+const Benefits = dynamic(() =>
+  import("@/app/components/sobremesas/Benefits")
+);
 const CourseContent = dynamic(() =>
   import("@/app/components/sobremesas/CourseContent")
 );
@@ -50,6 +51,16 @@ const VideoSectionFour = dynamic(() =>
 );
 
 const SobremesasPage: React.FC = () => {
+  const { trackViewContent } = useTracking();
+
+  useEffect(() => {
+    trackViewContent(
+      "Ebook Sobremesas Funcionais",
+      "ebook-sobremesas-001",
+      37.00
+    );
+  }, []);
+
   const handleButtonClick = () => {
     window.location.href = "/cadastro_sobremesas";
   };
@@ -65,16 +76,13 @@ const SobremesasPage: React.FC = () => {
         handleButtonClick={handleButtonClick}
         logoSrc=""
       />
-
       <LGPD />
-
       <Hero
         title="Descubra Sobremesas Funcionais que Nutrem, Encantam e Surpreendem!"
         subtitle="Aprenda receitas práticas, deliciosas e saudáveis que cuidam do seu corpo, mente e paladar — perfeitas para o dia a dia sem abrir mão do sabor."
         buttonText="Quero Minhas Sobremesas Saudáveis Agora!"
         onButtonClick={handleButtonClick}
       />
-
       <TrendsSection />
       <VideoSectionOne />
       <DessertBenefits />
