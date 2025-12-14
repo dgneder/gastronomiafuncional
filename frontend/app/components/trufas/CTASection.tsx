@@ -65,7 +65,7 @@ const CTASection: React.FC = () => {
         {/* Mockup */}
         <div className="mt-12 lg:mt-0 lg:w-1/2 flex justify-center lg:justify-end">
           <Image
-            src="/sobremesas/mockup-guia-sobremesas.png"
+            src="/trufas/mockup.png"
             alt="Mockup do Guia de Trufas Funcionais"
             width={600}
             height={600}

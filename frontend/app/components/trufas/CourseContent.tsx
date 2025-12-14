@@ -13,53 +13,53 @@ interface Module {
 const modules: Module[] = [
   {
     title: "⚡ Energia e Pré-Treino",
-    description: "8 receitas energizantes com cacau, maca e guaraná para potencializar seu treino.",
-    image: "/sobremesas/sobremesa-energia-02.png",
+    description: "10 receitas energizantes com cacau, maca e guaraná para potencializar seu treino.",
+    image: "/trufas/trufasverde.png",
   },
   {
     title: "💪 Recuperação Pós-Treino",
-    description: "8 trufas proteicas com whey, colágeno e aminoácidos para regeneração muscular.",
-    image: "/sobremesas/sobremesa-pos-treino.png",
+    description: "10 trufas proteicas com whey, colágeno e aminoácidos para regeneração muscular.",
+    image: "/trufas/trufaspostreino.png",
   },
   {
     title: "🧬 Saúde Intestinal e Digestiva",
-    description: "8 receitas com probióticos, fibras e ingredientes que cuidam do seu intestino.",
-    image: "/sobremesas/sobremesa-intestino.png",
+    description: "10 receitas com probióticos, fibras e ingredientes que cuidam do seu intestino.",
+    image: "/trufas/trufasaudeintestinal.png",
   },
   {
     title: "🧘 Relaxamento e Sono",
-    description: "8 trufas calmantes com camomila, maracujá e magnésio para noites tranquilas.",
-    image: "/sobremesas/sobremesa-relax.png",
+    description: "10 trufas calmantes com camomila, maracujá e magnésio para noites tranquilas.",
+    image: "/trufas/trufasrelaxante.png",
   },
   {
     title: "🧠 Foco e Função Cognitiva",
-    description: "8 receitas nootrópicas com lion's mane, ômega-3 e cacau para clareza mental.",
-    image: "/sobremesas/sobremesa-mente.png",
+    description: "10 receitas nootrópicas com lion's mane, ômega-3 e cacau para clareza mental.",
+    image: "/trufas/trufasfoco.png",
   },
   {
     title: "🌺 Beleza e Colágeno",
-    description: "8 trufas com colágeno, biotina e antioxidantes para pele, cabelos e unhas.",
-    image: "/sobremesas/sobremesa-beleza.png",
+    description: "10 trufas com colágeno, biotina e antioxidantes para pele, cabelos e unhas.",
+    image: "/trufas/trufasbeleza.png",
   },
   {
     title: "🛡️ Imunidade e Defesa",
-    description: "8 receitas com própolis, gengibre e vitamina C para fortalecer suas defesas.",
-    image: "/sobremesas/sobremesa-imunidade.png",
+    description: "10 receitas com própolis, gengibre e vitamina C para fortalecer suas defesas.",
+    image: "/trufas/trufasimunidade.png",
   },
   {
     title: "🔥 Anti-Inflamatório e Antioxidante",
-    description: "8 trufas com cúrcuma, açaí e resveratrol para combater inflamações.",
-    image: "/sobremesas/sobremesa-pele-intestino-02.png",
+    description: "10 trufas com cúrcuma, açaí e resveratrol para combater inflamações.",
+    image: "/trufas/trufasantioxidante.png",
   },
   {
     title: "⚖️ Emagrecimento e Saciedade",
-    description: "8 receitas termogênicas e saciantes com fibras e baixo índice glicêmico.",
-    image: "/sobremesas/sobremesa-peso.png",
+    description: "10 receitas termogênicas e saciantes com fibras e baixo índice glicêmico.",
+    image: "/trufas/trufasaciedade.png",
   },
   {
     title: "🌸 Hormonal e Feminino",
-    description: "8 trufas com maca, vitex e magnésio para equilíbrio hormonal feminino.",
-    image: "/sobremesas/sobremesa-detox.png",
+    description: "10 trufas com maca, vitex e magnésio para equilíbrio hormonal feminino.",
+    image: "/trufas/trufashormonal.png",
   },
 ];
 

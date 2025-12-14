@@ -13,32 +13,32 @@ const benefits: Benefit[] = [
   {
     title: "Energia que Impulsiona",
     description: "Trufas com cacau, maca e guaraná para dar aquele boost no seu dia.",
-    image: "/sobremesas/sobremesa-energia.png",
+    image: "/trufas/trufas_energia_up.png",
   },
   {
     title: "Controle de Peso Inteligente",
     description: "Baixo índice glicêmico e alta saciedade — doce sem culpa.",
-    image: "/sobremesas/sobremesa-peso.png",
+    image: "/trufas/trufas_peso.webp",
   },
   {
     title: "Imunidade Blindada",
     description: "Ingredientes como própolis, gengibre e vitamina C que fortalecem.",
-    image: "/sobremesas/sobremesa-imunidade.png",
+    image: "/trufas/trufas_imunidade.webp",
   },
   {
     title: "Beleza de Dentro pra Fora",
     description: "Colágeno, biotina e antioxidantes para pele, cabelos e unhas.",
-    image: "/sobremesas/sobremesa-beleza.png",
+    image: "/trufas/trufas_colageno.webp",
   },
   {
     title: "Intestino Equilibrado",
     description: "Fibras prebióticas e probióticos que cuidam da sua digestão.",
-    image: "/sobremesas/sobremesa-intestino.png",
+    image: "/trufas/trufas_intestino.webp",
   },
   {
     title: "Momentos que Conectam",
     description: "Trufas gourmet perfeitas para presentear ou compartilhar em família.",
-    image: "/sobremesas/sobremesa-familia.png",
+    image: "/trufas/trufas_conectam.webp",
   },
 ];
 

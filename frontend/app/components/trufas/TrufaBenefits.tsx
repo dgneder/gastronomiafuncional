@@ -21,7 +21,7 @@ const TrufaBenefits: React.FC = () => {
         {/* Imagem em Destaque */}
         <div className="mb-12">
           <Image
-            src="/sobremesas/destaque-sobremesas.png"
+            src="/trufas/destaque_up.png"
             alt="Trufas funcionais variadas e atraentes"
             width={1200}
             height={500}
@@ -36,7 +36,7 @@ const TrufaBenefits: React.FC = () => {
               title: "100% Plant-Based",
               description:
                 "Receitas veganas que respeitam os animais e o planeta sem perder o sabor.",
-              image: "/sobremesas/saudaveis-deliciosas.png",
+              image: "/trufas/trufas_plant_based.png",
             },
             {
               title: "Sem Açúcar Refinado",
@@ -48,25 +48,25 @@ const TrufaBenefits: React.FC = () => {
               title: "Ricas em Antioxidantes",
               description:
                 "Cacau, açaí, matcha e frutas vermelhas que combatem o envelhecimento.",
-              image: "/sobremesas/beleza-pele.png",
+              image: "/trufas/fudge_antioxidante.png",
             },
             {
               title: "Baixo Índice Glicêmico",
               description:
                 "Energia estável sem picos de açúcar — perfeito para diabéticos e low carb.",
-              image: "/sobremesas/baixo-glicemico.png",
+              image: "/trufas/trufa_baixo_indice.png",
             },
             {
               title: "Ingredientes Funcionais",
               description:
                 "Cada trufa contém princípios ativos com benefícios comprovados.",
-              image: "/sobremesas/facil-preparar.png",
+              image: "/trufas/trufas_funcionais.png",
             },
             {
               title: "Visual Instagramável",
               description:
                 "Estética gourmet pensada para impressionar — perfeitas para vender ou presentear.",
-              image: "/sobremesas/visualmente-bonitas.png",
+              image: "/trufas/trufa_instagramavel.png",
             },
           ].map((benefit, index) => (
             <div
