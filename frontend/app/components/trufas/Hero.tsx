@@ -42,7 +42,7 @@ const Hero: React.FC<HeroProps> = ({
         {/* Imagem com VSL */}
         <div className="w-full flex justify-center mt-4">
           <Image
-            src="/trufas/trufas_hero.png"
+            src="/trufas/hero_trufas.png"
             alt="Trufas funcionais variadas"
             width={520}
             height={400}

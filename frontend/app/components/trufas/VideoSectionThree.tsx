@@ -47,11 +47,11 @@ const VideoSectionThree: React.FC = () => {
             loop
             playsInline
             preload="metadata"
-            poster="/imagens/sobremesas-poster-03.jpg"
+            poster="/trufas/trufasflow03.png"
             className="w-full h-auto"
           >
-            <source src="/videos/sobremesas-video-03-opt.webm" type="video/webm" />
-            <source src="/videos/sobremesas-video-03-opt.mp4" type="video/mp4" />
+            <source src="/trufas/trufas-video-03.webm" type="video/webm" />
+            <source src="/trufas/trufas-video-03.mp4" type="video/mp4" />
             Seu navegador não suporta vídeos.
           </video>
 

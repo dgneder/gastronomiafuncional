@@ -50,11 +50,11 @@ const VideoSectionOne: React.FC = () => {
             playsInline
             controls={false}
             preload="metadata"
-            poster="/imagens/sobremesas-poster.jpg"
+            poster="/trufas/trufasflow01.png"
             className="w-full h-auto"
           >
-            <source src="/videos/sobremesas-video-01-opt.webm" type="video/webm" />
-            <source src="/videos/sobremesas-video-01-opt.mp4" type="video/mp4" />
+            <source src="/trufas/trufas-video-01.webm" type="video/webm" />
+            <source src="/trufas/trufas-video-01.mp4" type="video/mp4" />
             Seu navegador não suporta vídeos.
           </video>
 

@@ -23,7 +23,7 @@ const FloatingNavBar: React.FC<FloatingNavBarProps> = ({
       <div className="flex items-center space-x-3">
         <Link href="/">
           <Image
-            src={logoSrc || "/trufas-logo.png"}
+            src={logoSrc || "/trufas/trufas-logo.jpeg"}
             alt="Logo"
             width={140}
             height={50}
