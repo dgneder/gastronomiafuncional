@@ -1,65 +1,69 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import { useTracking } from "@/app/hooks/useTracking";
 
 const Form: React.FC = () => {
   const { trackLead } = useTracking();
-  const formRef = useRef<HTMLFormElement>(null);
+  const [buttonText, setButtonText] = useState("CONTINUAR");
 
-  // URL base do Webhook (sem o redirect ainda)
-  const webhookBase = "https://webhook.sellflux.app/v2/webhook/form/e60bdb8ee95a621e87a74a5f5fb59990";
-  
-  // URL base da Hotmart
-  const hotmartBase = "https://pay.hotmart.com/L103445537S";
+  // Configurações
+  const sellfluxWebhook = "https://webhook.sellflux.app/v2/webhook/form/e60bdb8ee95a621e87a74a5f5fb59990";
+  const hotmartBaseUrl = "https://pay.hotmart.com/L103445537S";
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const form = e.currentTarget; // Referência direta ao formulário
+    e.preventDefault(); // Impede o envio padrão do navegador
+    setButtonText("PROCESSANDO...");
 
-    const formData = new FormData(form);
-    const name = String(formData.get("name") || "");
-    const email = String(formData.get("email") || "");
+    const formData = new FormData(e.currentTarget);
+    const name = String(formData.get("name") || "").trim();
+    const email = String(formData.get("email") || "").trim();
     const ddi = String(formData.get("ddi") || "55");
     const phone = String(formData.get("phone") || "");
 
-    // 1. Limpeza do telefone (Apenas números)
+    // 1. Tratamento do Telefone
     const cleanPhone = phone.replace(/\D/g, ""); 
-    const fullPhone = `${ddi}${cleanPhone}`; // Formato 5511999999999
+    const fullPhone = `+${ddi}${cleanPhone}`; // Formato +5583999999999 para tracking
+    const hotmartPhone = `${ddi}${cleanPhone}`; // Formato 5583999999999 para Hotmart
 
-    // 2. Rastreamento (Pixel/API)
-    // Fazemos isso antes de sair da página
-    await trackLead(email, `+${fullPhone}`);
+    // 2. Envio para Rastreamento (Pixel/API)
+    await trackLead(email, fullPhone);
 
-    // 3. Construção Inteligente da URL da Hotmart
-    // Aqui "colamos" os dados do usuário na URL de destino
-    const hotmartParams = new URLSearchParams();
-    hotmartParams.append("off", "obgahk0r"); // Oferta R$ 47
-    hotmartParams.append("checkoutMode", "10");
-    hotmartParams.append("name", name);
-    hotmartParams.append("email", email);
+    // 3. Envio para Sellflux (Em segundo plano)
+    // Usamos 'no-cors' pois webhooks geralmente não retornam JSON legível para o browser,
+    // mas o dado é recebido lá normalmente.
+    try {
+      const sellfluxData = new FormData();
+      sellfluxData.append("name", name);
+      sellfluxData.append("email", email);
+      sellfluxData.append("phone", fullPhone);
+
+      await fetch(sellfluxWebhook, {
+        method: "POST",
+        body: sellfluxData,
+        mode: "no-cors",
+      });
+    } catch (error) {
+      console.error("Erro ao salvar lead:", error);
+      // Não paramos o fluxo se der erro no webhook, priorizamos a venda
+    }
+
+    // 4. Redirecionamento Controlado (Client-Side)
+    // Montamos a URL manualmente, sem interferência externa
+    const params = new URLSearchParams();
+    params.append("off", "obgahk0r");
+    params.append("checkoutMode", "10");
+    params.append("name", name);
+    params.append("email", email);
     
-    // Envia o telefone em todas as variações para garantir o preenchimento
-    hotmartParams.append("phoneac", fullPhone);
-    hotmartParams.append("phone", fullPhone);
+    // Parâmetros de telefone para preenchimento automático
+    params.append("phoneac", hotmartPhone); 
     
-    // URL Final da Hotmart com os dados
-    const finalHotmartUrl = `${hotmartBase}?${hotmartParams.toString()}`;
-
-    // 4. Montagem da URL de Ação do Formulário
-    // Dizemos para a Sellflux: "Salva o lead E DEPOIS joga ele para essa URL cheia de dados"
-    const finalActionUrl = `${webhookBase}?redirect_url=${encodeURIComponent(finalHotmartUrl)}`;
-
-    // 5. Atualiza a ação do formulário e envia
-    form.action = finalActionUrl;
-    form.submit(); // Envio nativo (não passa pelo React mais)
+    // Forçamos o redirecionamento aqui
+    window.location.href = `${hotmartBaseUrl}?${params.toString()}`;
   };
 
   return (
     <form
-      ref={formRef}
-      method="post"
-      // Deixamos vazio ou padrão aqui, pois será sobrescrito no submit
-      action={webhookBase} 
       onSubmit={handleSubmit}
       className="space-y-6 bg-zinc-900 p-6 rounded-xl shadow-lg border border-amber-500"
     >
@@ -115,7 +119,7 @@ const Form: React.FC = () => {
             className="w-full px-4 py-3 border border-l-0 border-amber-500 bg-zinc-800 rounded-r-md focus:outline-none focus:ring-2 focus:ring-amber-400 text-amber-100 placeholder-amber-400"
           />
         </div>
-
+        
         <p className="text-xs text-zinc-400">
           Dica: digite só números (DDD + número).
         </p>
@@ -123,9 +127,9 @@ const Form: React.FC = () => {
 
       <button
         type="submit"
-        className="w-full py-4 bg-amber-600 text-white font-bold uppercase rounded-lg hover:bg-amber-500 transition-all duration-300 shadow-md text-lg tracking-wide"
+        className="w-full py-4 bg-amber-600 text-white font-bold uppercase rounded-lg hover:bg-amber-500 transition-all duration-300 shadow-md text-lg tracking-wide hover:shadow-amber-500/20"
       >
-        CONTINUAR
+        {buttonText}
       </button>
     </form>
   );
