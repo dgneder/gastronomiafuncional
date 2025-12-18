@@ -31,7 +31,7 @@ const CTASection: React.FC = () => {
           <div className="mt-6">
             <p className="text-2xl font-bold text-amber-700">
               De <span className="line-through text-red-500">R$97</span> por apenas{" "}
-              <span className="text-amber-800">R$47</span>
+              <span className="text-amber-800">R$37</span>
             </p>
             <p className="text-sm text-gray-500 italic">Oferta especial por tempo limitado!</p>
           </div>

@@ -18,7 +18,7 @@ const PriceIndicator: React.FC<PriceIndicatorProps> = ({
       <p className="text-3xl font-extrabold text-amber-400">
         R${discountedPrice}
       </p>
-      <p className="text-zinc-500 text-xs">ou 12x de R${(discountedPrice / 12).toFixed(2)}</p>
+      <p className="text-zinc-500 text-xs">ou 5x de R${(40.95 / 5).toFixed(2)}</p>
     </div>
   );
 };

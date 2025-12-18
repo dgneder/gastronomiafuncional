@@ -24,7 +24,7 @@ export default function CadastroTrufasPremium() {
     trackAddToCart(
       "Guia de Trufas e Docinhos Funcionais",
       "guia-trufas-funcionais",
-      47.00
+      37.00
     );
   }, []);
 
@@ -41,7 +41,7 @@ export default function CadastroTrufasPremium() {
         <SocialProof />
         <Benefits />
         <SatisfactionGuarantee />
-        <PriceIndicator originalPrice={97} discountedPrice={47} />
+        <PriceIndicator originalPrice={97} discountedPrice={37} />
         <PersuasiveCTA />
         <SecuritySeal />
       </main>

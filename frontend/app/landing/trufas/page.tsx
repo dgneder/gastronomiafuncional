@@ -30,7 +30,7 @@ const TrufasPage: React.FC = () => {
     trackViewContent(
       "Guia de Trufas e Docinhos Funcionais",
       "guia-trufas-funcionais",
-      47.00
+      37.00
     );
   }, []);
 
@@ -69,7 +69,7 @@ const TrufasPage: React.FC = () => {
       <Testimonials />
       <FAQ />
       <FinalCTA
-        buttonText="Quero Garantir Meu Acesso por R$47"
+        buttonText="Quero Garantir Meu Acesso por R$37"
         onButtonClick={handleButtonClick}
       />
       <VideoSectionFour />
