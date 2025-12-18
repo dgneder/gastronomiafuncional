@@ -6,11 +6,13 @@ const Form: React.FC = () => {
   const { trackLead } = useTracking();
   const formRef = useRef<HTMLFormElement>(null);
 
-  // Use o mesmo PADRÃO do Sobremesas (v2/form/lead)
+  // CORREÇÃO FINAL:
+  // Voltei para a URL exata do seu HTML original (sem o "/lead" no meio)
+  // Mantive o parâmetro &off=obgahk0r para garantir o preço de R$ 47
   const actionUrl =
-    "https://webhook.sellflux.com/webhook/v2/form/lead/e60bdb8ee95a621e87a74a5f5fb59990" +
+    "https://webhook.sellflux.app/v2/webhook/form/e60bdb8ee95a621e87a74a5f5fb59990" +
     "?redirect_url=" +
-    encodeURIComponent("https://pay.hotmart.com/L103445537S?checkoutMode=10");
+    encodeURIComponent("https://pay.hotmart.com/L103445537S?off=obgahk0r&checkoutMode=10");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -20,10 +22,10 @@ const Form: React.FC = () => {
     const ddi = String(formData.get("ddi") || "55");
     const phone = String(formData.get("phone") || "");
 
-    // Envie pro seu tracking o telefone já “completo”
-    await trackLead(email, `+${ddi}${phone}`);
+    const cleanPhone = phone.replace(/\D/g, "");
+    
+    await trackLead(email, `+${ddi}${cleanPhone}`);
 
-    // Agora deixa o POST real acontecer (Sellflux salva e redireciona)
     formRef.current?.submit();
   };
 
@@ -88,7 +90,6 @@ const Form: React.FC = () => {
           />
         </div>
 
-        {/* opcional: ajuda o Sellflux/Hotmart a não “engasgar” com máscara */}
         <p className="text-xs text-zinc-400">
           Dica: digite só números (DDD + número).
         </p>
