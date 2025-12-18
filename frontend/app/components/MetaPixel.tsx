@@ -10,11 +10,12 @@ import { v4 as uuidv4 } from 'uuid'
 const FB_PIXEL_ID = process.env.NEXT_PUBLIC_FB_PIXEL_ID
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
-declare global {
-  interface Window {
-    fbq: (...args: any[]) => void;
-  }
-}
+// REMOVIDO: A declaração global que estava causando conflito no Build
+// declare global {
+//   interface Window {
+//     fbq: (...args: any[]) => void;
+//   }
+// }
 
 function getCookie(name: string): string | null {
   if (typeof document === 'undefined') return null
@@ -48,8 +49,9 @@ function PageViewTracker() {
     const eventId = uuidv4()
     
     // 1. Pixel (navegador)
-    if (window.fbq) {
-      window.fbq('track', 'PageView', {}, { eventID: eventId })
+    // Usamos (window as any) para "pular" a verificação de tipo estrita que estava quebrando o build
+    if ((window as any).fbq) {
+      (window as any).fbq('track', 'PageView', {}, { eventID: eventId })
     }
     
     // 2. CAPI (servidor)
