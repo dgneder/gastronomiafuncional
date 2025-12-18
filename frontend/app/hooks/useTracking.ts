@@ -1,156 +1,157 @@
-// src/app/hooks/useTracking.ts
-import { v4 as uuidv4 } from 'uuid'
+"use client";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL
+import { useCallback } from "react";
 
-function getCookie(name: string): string | null {
-  if (typeof document === 'undefined') return null
-  const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'))
-  return match ? match[2] : null
-}
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export function useTracking() {
+  const getCookie = (name: string): string | null => {
+    if (typeof document === "undefined") return null;
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop()?.split(";").shift() || null;
+    return null;
+  };
 
-  const trackViewContent = async (
-    contentName: string,
-    contentId?: string,
-    value?: number
-  ) => {
-    const eventId = uuidv4()
-    const url = window.location.href
+  const trackViewContent = useCallback(
+    async (contentName: string, contentId?: string, value?: number) => {
+      const eventId = crypto.randomUUID();
 
-    if (window.fbq) {
-      // @ts-ignore
-      window.fbq('track', 'ViewContent', {
-        content_name: contentName,
-        content_ids: contentId ? [contentId] : [],
-        content_type: 'product',
-        value: value,
-        currency: 'BRL'
-      }, { eventID: eventId })
-    }
+      if (typeof window !== "undefined" && window.fbq) {
+        window.fbq(
+          "track",
+          "ViewContent",
+          {
+            content_name: contentName,
+            content_ids: contentId ? [contentId] : undefined,
+            content_type: "product",
+            value: value,
+            currency: "BRL",
+          },
+          { eventID: eventId }
+        );
+      }
 
-    try {
-      await fetch(`${API_URL}/api/tracking/viewcontent`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          event_id: eventId,
-          page_url: url,
-          content_name: contentName,
-          content_id: contentId,
-          value: value,
-          fbc: getCookie('_fbc'),
-          fbp: getCookie('_fbp'),
-        })
-      })
-    } catch (error) {
-      console.error('CAPI ViewContent error:', error)
-    }
-  }
+      try {
+        await fetch(`${API_URL}/api/tracking/viewcontent`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            event_id: eventId,
+            page_url: window.location.href,
+            content_name: contentName,
+            content_id: contentId,
+            value: value,
+            fbc: getCookie("_fbc"),
+            fbp: getCookie("_fbp"),
+          }),
+        });
+      } catch (error) {
+        console.error("CAPI ViewContent error:", error);
+      }
+    },
+    []
+  );
 
-  const trackAddToCart = async (
-    contentName: string,
-    contentId?: string,
-    value?: number
-  ) => {
-    const eventId = uuidv4()
-    const url = window.location.href
+  const trackAddToCart = useCallback(
+    async (contentName: string, contentId?: string, value?: number) => {
+      const eventId = crypto.randomUUID();
 
-    if (window.fbq) {
-      // @ts-ignore
-      window.fbq('track', 'AddToCart', {
-        content_name: contentName,
-        content_ids: contentId ? [contentId] : [],
-        content_type: 'product',
-        value: value,
-        currency: 'BRL'
-      }, { eventID: eventId })
-    }
+      if (typeof window !== "undefined" && window.fbq) {
+        window.fbq(
+          "track",
+          "AddToCart",
+          {
+            content_name: contentName,
+            content_ids: contentId ? [contentId] : undefined,
+            content_type: "product",
+            value: value,
+            currency: "BRL",
+          },
+          { eventID: eventId }
+        );
+      }
 
-    try {
-      await fetch(`${API_URL}/api/tracking/addtocart`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          event_id: eventId,
-          page_url: url,
-          content_name: contentName,
-          content_id: contentId,
-          value: value,
-          fbc: getCookie('_fbc'),
-          fbp: getCookie('_fbp'),
-        })
-      })
-    } catch (error) {
-      console.error('CAPI AddToCart error:', error)
-    }
-  }
+      try {
+        await fetch(`${API_URL}/api/tracking/addtocart`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            event_id: eventId,
+            page_url: window.location.href,
+            content_name: contentName,
+            content_id: contentId,
+            value: value,
+            fbc: getCookie("_fbc"),
+            fbp: getCookie("_fbp"),
+          }),
+        });
+      } catch (error) {
+        console.error("CAPI AddToCart error:", error);
+      }
+    },
+    []
+  );
 
-  const trackLead = async (
-    email?: string,
-    phone?: string
-  ) => {
-    const eventId = uuidv4()
-    const url = window.location.href
+  const trackLead = useCallback(async (email?: string, phone?: string) => {
+    const eventId = crypto.randomUUID();
 
-    if (window.fbq) {
-      // @ts-ignore
-      window.fbq('track', 'Lead', {}, { eventID: eventId })
+    if (typeof window !== "undefined" && window.fbq) {
+      window.fbq("track", "Lead", {}, { eventID: eventId });
     }
 
     try {
       await fetch(`${API_URL}/api/tracking/lead`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           event_id: eventId,
-          page_url: url,
+          page_url: window.location.href,
           email: email,
           phone: phone,
-          fbc: getCookie('_fbc'),
-          fbp: getCookie('_fbp'),
-        })
-      })
+          fbc: getCookie("_fbc"),
+          fbp: getCookie("_fbp"),
+        }),
+      });
     } catch (error) {
-      console.error('CAPI Lead error:', error)
+      console.error("CAPI Lead error:", error);
     }
-  }
+  }, []);
 
-  const trackPurchase = async (
-    contentId: string,
-    value: number
-  ) => {
-    const eventId = uuidv4()
-    const url = window.location.href
+  const trackPurchase = useCallback(async (contentId: string, value: number) => {
+    const eventId = crypto.randomUUID();
 
-    if (window.fbq) {
-      // @ts-ignore
-      window.fbq('track', 'Purchase', {
-        content_ids: [contentId],
-        content_type: 'product',
-        value: value,
-        currency: 'BRL'
-      }, { eventID: eventId })
+    if (typeof window !== "undefined" && window.fbq) {
+      window.fbq(
+        "track",
+        "Purchase",
+        {
+          content_ids: [contentId],
+          content_type: "product",
+          value: value,
+          currency: "BRL",
+        },
+        { eventID: eventId }
+      );
     }
 
     try {
       await fetch(`${API_URL}/api/tracking/purchase`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           event_id: eventId,
-          page_url: url,
+          page_url: window.location.href,
           content_id: contentId,
           value: value,
-          fbc: getCookie('_fbc'),
-          fbp: getCookie('_fbp'),
-        })
-      })
+          fbc: getCookie("_fbc"),
+          fbp: getCookie("_fbp"),
+        }),
+      });
     } catch (error) {
-      console.error('CAPI Purchase error:', error)
+      console.error("CAPI Purchase error:", error);
     }
-  }
+  }, []);
 
-  return { trackViewContent, trackAddToCart, trackLead, trackPurchase }
+  return { trackViewContent, trackAddToCart, trackLead, trackPurchase };
 }
