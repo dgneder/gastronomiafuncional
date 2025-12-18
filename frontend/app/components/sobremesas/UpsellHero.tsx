@@ -5,7 +5,7 @@ import HotmartUpsellWidget from "@/app/components/HotmartUpsellWidget";
 
 const UpsellHero: React.FC = () => {
   return (
-    <section className="bg-gradient-to-b from-rose-100 via-pink-100 to-white pt-10 pb-16 px-6 text-center">
+    <section className="bg-linear-to-b from-rose-100 via-pink-100 to-white pt-10 pb-16 px-6 text-center">
       <div className="max-w-4xl mx-auto flex flex-col items-center">
         
         {/* Barra de Alerta */}
