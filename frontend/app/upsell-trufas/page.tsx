@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { useSearchParams } from "next/navigation";
 import { useTracking } from "@/app/hooks/useTracking";
@@ -12,23 +12,26 @@ const UpsellFAQ = dynamic(() => import("@/app/components/upsell-trufas/Upsellfaq
 const UpsellFooter = dynamic(() => import("@/app/components/upsell-trufas/Upsellfooter"));
 
 // Loading fallback
-const UpsellLoading = () => (
-  <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-100 flex items-center justify-center">
-    <div className="text-center">
-      <div className="w-16 h-16 border-4 border-amber-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-      <p className="text-amber-700 font-semibold">Carregando sua oferta especial...</p>
+function UpsellLoading() {
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-100 flex items-center justify-center">
+      <div className="text-center">
+        <div className="w-16 h-16 border-4 border-amber-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+        <p className="text-amber-700 font-semibold">Carregando sua oferta especial...</p>
+      </div>
     </div>
-  </div>
-);
+  );
+}
 
-const TrufasUpsellPage = () => {
+// Componente que usa useSearchParams (precisa estar dentro do Suspense)
+function UpsellContent() {
   const { trackViewContent } = useTracking();
   const searchParams = useSearchParams();
 
-  // Captura os dados do cliente vindos da página anterior (checkout ou formulário)
-  const customerName = searchParams?.get("name") || "";
-  const customerEmail = searchParams?.get("email") || "";
-  const customerPhone = searchParams?.get("phone") || "";
+  // Captura os dados do cliente vindos da página anterior
+  const customerName = searchParams.get("name") || "";
+  const customerEmail = searchParams.get("email") || "";
+  const customerPhone = searchParams.get("phone") || "";
 
   useEffect(() => {
     trackViewContent(
@@ -39,21 +42,18 @@ const TrufasUpsellPage = () => {
   }, [trackViewContent]);
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // CONFIGURAÇÃO DO CHECKOUT HOTMART UPSELL - ATUALIZE AQUI
+  // CONFIGURAÇÃO DO CHECKOUT HOTMART UPSELL
   // ═══════════════════════════════════════════════════════════════════════════
-  const hotmartUpsellUrl = "https://pay.hotmart.com/L103445537S"; // Link do produto upsell
-  const offerCode = ""; // Código da oferta especial (deixe vazio se não tiver)
-  const declineRedirectUrl = "/obrigado-trufas"; // Para onde vai se recusar
+  const hotmartUpsellUrl = "https://pay.hotmart.com/L103445537S";
+  const offerCode = "";
+  const declineRedirectUrl = "/obrigado-trufas";
   // ═══════════════════════════════════════════════════════════════════════════
 
   const handleAcceptUpsell = () => {
     const params = new URLSearchParams();
     params.append("checkoutMode", "10");
     
-    // Adiciona código da oferta se existir
     if (offerCode) params.append("off", offerCode);
-    
-    // Preenche automaticamente com os dados do cliente
     if (customerName) params.append("name", customerName);
     if (customerEmail) params.append("email", customerEmail);
     if (customerPhone) {
@@ -68,13 +68,8 @@ const TrufasUpsellPage = () => {
     window.location.href = declineRedirectUrl;
   };
 
-  // Mostra loading se searchParams ainda não carregou
-  if (!searchParams) {
-    return <UpsellLoading />;
-  }
-
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-100">
+    <>
       <UpsellHero
         customerName={customerName}
         onAccept={handleAcceptUpsell}
@@ -88,8 +83,17 @@ const TrufasUpsellPage = () => {
         onDecline={handleDeclineUpsell}
       />
       <UpsellFooter />
+    </>
+  );
+}
+
+// Página principal com Suspense (obrigatório no Next.js 14+)
+export default function TrufasUpsellPage() {
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-100">
+      <Suspense fallback={<UpsellLoading />}>
+        <UpsellContent />
+      </Suspense>
     </div>
   );
-};
-
-export default TrufasUpsellPage;
+}
