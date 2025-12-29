@@ -20,7 +20,7 @@ from sqlalchemy import select
 
 from db import get_session, init_db
 from models import LeadDB
-from services.meta_capi import meta_capi
+from app.services.meta_capi import meta_capi
 
 
 # ============================================================================
