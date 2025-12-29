@@ -4,6 +4,12 @@ BACKEND API - GASTRONOMIA FUNCIONAL
 ================================================================================
 """
 
+import sys
+import os
+
+# Adiciona o diretório atual ao caminho de busca do Python
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, Depends, Request
 from fastapi.middleware.cors import CORSMiddleware
