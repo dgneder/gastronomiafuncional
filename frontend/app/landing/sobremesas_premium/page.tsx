@@ -88,7 +88,12 @@ export default function SobremesasPremiumLandingPage() {
       />
 
       <main>
-        {/* 1) HERO */}
+        {/* ═══════════════════════════════════════════════════════════════
+            BLOCO 1: ABERTURA + CONTEXTO
+            Objetivo: Capturar atenção e estabelecer relevância
+        ═══════════════════════════════════════════════════════════════ */}
+        
+        {/* 1) HERO - Primeira impressão */}
         <Hero
           title="Guia de Sobremesas Funcionais"
           subtitle="Sobremesas que nutrem e encantam — sem abrir mão do sabor."
@@ -96,39 +101,77 @@ export default function SobremesasPremiumLandingPage() {
           onButtonClick={scrollToCTA}
         />
 
-        {/* 2) CONTEXTO / AQUECIMENTO */}
+        {/* 2) TENDÊNCIA - Validação social/mercado */}
         <TrendsSection />
+
+        {/* ═══════════════════════════════════════════════════════════════
+            BLOCO 2: DEMONSTRAÇÃO + BENEFÍCIOS
+            Objetivo: Mostrar o produto e seus diferenciais
+        ═══════════════════════════════════════════════════════════════ */}
+
+        {/* 3) VÍDEO 1 - Primeira demonstração visual */}
+        <VideoSectionOne />
+
+        {/* 4) BENEFÍCIOS VISUAIS - O que torna as sobremesas funcionais */}
+        <DessertBenefits />
+
+        {/* 5) VÍDEO 2 - Mantém engajamento visual */}
+        <VideoSectionTwo />
+
+        {/* 6) BENEFÍCIOS FUNCIONAIS - Resultados práticos */}
+        <Benefits />
+
+        {/* 7) CLASSIFICAÇÕES - Tags funcionais (Vegano, Low Carb, etc.) */}
         <FunctionalTags />
 
-        {/* 3) VÍDEOS */}
-        <VideoSectionOne />
-        <VideoSectionTwo />
-        <VideoSectionThree />
-        <VideoSectionFour />
+        {/* ═══════════════════════════════════════════════════════════════
+            BLOCO 3: CTA INTERMEDIÁRIO + CONTEÚDO
+            Objetivo: Capturar quem já está convencido + detalhar oferta
+        ═══════════════════════════════════════════════════════════════ */}
 
-        {/* 4) BENEFÍCIOS + PROVA SOCIAL */}
-        <DessertBenefits />
+        {/* 8) CTA COM PREÇO - Captura usuários já decididos (crucial!) */}
+        <CTASection onButtonClick={goToCheckout} />
+
+        {/* 9) CONTEÚDO DO GUIA - Módulos + Bônus */}
+        <CourseContent />
+
+        {/* 10) VÍDEO 3 - Reengaja antes da prova social */}
+        <VideoSectionThree />
+
+        {/* ═══════════════════════════════════════════════════════════════
+            BLOCO 4: PROVA SOCIAL + DEPOIMENTOS
+            Objetivo: Construir confiança através de outros clientes
+        ═══════════════════════════════════════════════════════════════ */}
+
+        {/* 11) PROVA SOCIAL - +1000 clientes, avaliação 4.9 */}
         <SocialProofSection onButtonClick={scrollToCTA} />
 
-        {/* 5) CONTEÚDO / GARANTIA / FAQ */}
-        <CourseContent />
-        <Benefits />
-        <Guarantee />
-        <FAQ />
-
-        {/* 6) DEPOIMENTOS (✅ agora com onButtonClick) */}
+        {/* 12) DEPOIMENTOS - Histórias reais */}
         <Testimonials onButtonClick={scrollToCTA} />
 
-        {/* 7) CTA FINAL (ancora) */}
+        {/* ═══════════════════════════════════════════════════════════════
+            BLOCO 5: OBJEÇÕES + FECHAMENTO
+            Objetivo: Remover dúvidas e criar urgência
+        ═══════════════════════════════════════════════════════════════ */}
+
+        {/* 13) FAQ - Responde objeções racionais */}
+        <FAQ />
+
+        {/* 14) URGÊNCIA - Contador + escassez */}
         <FinalCTA
           buttonText="Quero Garantir com Desconto"
           onButtonClick={scrollToCTA}
         />
 
-        {/* 8) SEÇÃO #CTA (checkout Yampi) */}
-        <CTASection onButtonClick={goToCheckout} />
+        {/* 15) VÍDEO 4 - Último estímulo visual */}
+        <VideoSectionFour />
 
-        {/* 9) RODAPÉ */}
+        {/* 16) GARANTIA - Remove última objeção (posição final!) */}
+        <Guarantee />
+
+        {/* ═══════════════════════════════════════════════════════════════
+            RODAPÉ
+        ═══════════════════════════════════════════════════════════════ */}
         <Footer />
       </main>
 
