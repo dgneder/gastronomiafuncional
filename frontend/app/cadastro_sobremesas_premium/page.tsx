@@ -1,0 +1,50 @@
+"use client";
+import { useEffect } from "react";
+import dynamic from "next/dynamic";
+import ScriptLoader from "@/app/components/cadastro_sobremesas_premium/ScriptLoader";
+import ProgressBar from "@/app/components/cadastro_sobremesas_premium/ProgressBar";
+import SocialProof from "@/app/components/cadastro_sobremesas_premium/SocialProof";
+import Benefits from "@/app/components/cadastro_sobremesas_premium/Benefits";
+import SatisfactionGuarantee from "@/app/components/cadastro_sobremesas_premium/SatisfactionGuarantee";
+import PriceIndicator from "@/app/components/cadastro_sobremesas_premium/PriceIndicator";
+import SecuritySeal from "@/app/components/cadastro_sobremesas_premium/SecuritySeal";
+import PersuasiveCTA from "@/app/components/cadastro_sobremesas_premium/PersuasiveCTA";
+import Form from "@/app/components/cadastro_sobremesas_premium/form";
+import { useTracking } from "@/app/hooks/useTracking";
+
+const CountdownTimer = dynamic(
+  () => import("@/app/components/cadastro_sobremesas_premium/CountdownTimer"),
+  { ssr: false }
+);
+
+export default function CadastroSobremesasPremium() {
+  const { trackAddToCart } = useTracking();
+
+  useEffect(() => {
+    trackAddToCart(
+      "Guia de Sobremesas Funcionais",
+      "guia-sobremesas-funcionais",
+      37.00
+    );
+  }, []);
+
+  return (
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-b from-pink-950 via-pink-900 to-zinc-900 text-zinc-100 px-4 py-10">
+      <main className="bg-zinc-900 p-6 lg:p-8 rounded-2xl shadow-2xl w-full max-w-md border border-pink-400 space-y-6">
+        <ProgressBar progress={50} />
+        <h1 className="text-2xl lg:text-3xl font-extrabold text-center text-pink-400">
+          Cadastre-se para Continuar
+        </h1>
+        <ScriptLoader />
+        <CountdownTimer hours={24} />
+        <Form />
+        <SocialProof />
+        <Benefits />
+        <SatisfactionGuarantee />
+        <PriceIndicator originalPrice={97} discountedPrice={37} />
+        <PersuasiveCTA />
+        <SecuritySeal />
+      </main>
+    </div>
+  );
+}
