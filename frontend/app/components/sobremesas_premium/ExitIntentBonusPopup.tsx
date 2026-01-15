@@ -5,10 +5,11 @@ import React, { useEffect, useMemo, useState } from "react";
 interface ExitIntentBonusPopupProps {
   delayMs?: number; // ex: 55000
   topReturnThresholdPx?: number; // ex: 260
-  onAccept: () => void; // ex: scrollToCTA + trackLead
-  onGoToCheckout: () => void;
+  onAccept: () => void; // ex: trackLead (opcional)
+  onGoToCheckout: () => void; // deve ir para checkout com desconto
   bonusLabel?: string;
   bonusText?: string;
+  ctaText?: string; // texto do botão principal
 }
 
 const STORAGE_KEY = "gf_exit_bonus_seen_at";
@@ -37,8 +38,9 @@ export default function ExitIntentBonusPopup({
   topReturnThresholdPx = 260,
   onAccept,
   onGoToCheckout,
-  bonusLabel = "BÔNUS VÁLIDO HOJE",
-  bonusText = "Pack extra + checklist + cardápio 7 dias (acesso imediato)",
+  bonusLabel = "DESCONTO DE 15% • VÁLIDO HOJE",
+  bonusText = "Você libera 15% OFF e ainda recebe: Pack extra + checklist + cardápio 7 dias (acesso imediato).",
+  ctaText = "QUERO 15% OFF E GARANTIR AGORA",
 }: ExitIntentBonusPopupProps) {
   const [open, setOpen] = useState(false);
 
@@ -79,12 +81,10 @@ export default function ExitIntentBonusPopup({
     if (!allowed) return;
 
     // 3) voltar pro topo (mobile e geral)
-    const onScroll = () => {
+    const openIfReturnToTop = () => {
       if (open) return;
       const y = window.scrollY || 0;
       if (y <= topReturnThresholdPx) {
-        // Só abre se a pessoa já desceu um pouco antes
-        // (evita abrir no load)
         if (document.documentElement.scrollHeight > window.innerHeight * 2) {
           setOpen(true);
           markShown();
@@ -95,8 +95,7 @@ export default function ExitIntentBonusPopup({
     let lastY = window.scrollY || 0;
     const handler = () => {
       const y = window.scrollY || 0;
-      // Só considera "voltar" se estava mais embaixo e voltou.
-      if (lastY > 900 && y <= topReturnThresholdPx) onScroll();
+      if (lastY > 900 && y <= topReturnThresholdPx) openIfReturnToTop();
       lastY = y;
     };
 
@@ -108,13 +107,11 @@ export default function ExitIntentBonusPopup({
 
   const close = () => setOpen(false);
 
-  const accept = () => {
+  const acceptAndCheckout = () => {
     close();
+    // marca lead (opcional) e/ou qualquer outra ação
     onAccept();
-  };
-
-  const buyNow = () => {
-    close();
+    // vai pro checkout com desconto (link V4OTABFPEW)
     onGoToCheckout();
   };
 
@@ -130,28 +127,21 @@ export default function ExitIntentBonusPopup({
 
           <h3 className="mt-3 text-2xl font-extrabold text-gray-900">
             Antes de sair…
-            <span className="text-pink-600"> quer levar um bônus</span>?
+            <span className="text-pink-600"> quer garantir com desconto</span>?
           </h3>
 
-          <p className="mt-2 text-gray-600">
-            {bonusText}
-          </p>
+          <p className="mt-2 text-gray-600">{bonusText}</p>
 
           <div className="mt-5 flex flex-col gap-3">
+            {/* ✅ ÚNICO botão principal */}
             <button
-              onClick={accept}
+              onClick={acceptAndCheckout}
               className="w-full py-4 rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-extrabold shadow-lg hover:shadow-xl transition-all"
             >
-              Liberar bônus e ver o CTA
+              {ctaText}
             </button>
 
-            <button
-              onClick={buyNow}
-              className="w-full py-4 rounded-xl bg-white border border-rose-200 text-gray-800 font-bold hover:bg-rose-50 transition-colors"
-            >
-              Ir direto pro checkout
-            </button>
-
+            {/* “Agora não” discreto */}
             <button
               onClick={close}
               className="w-full py-3 rounded-xl text-gray-500 hover:text-gray-700 text-sm"

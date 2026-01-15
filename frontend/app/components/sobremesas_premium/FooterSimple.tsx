@@ -69,7 +69,7 @@ const FooterSimple: React.FC = () => {
             <FaEnvelope className="text-lg" />
           </a>
           <a
-            href="https://instagram.com/agricultando"
+            href="https://instagram.com/annecarolinapessoa"
             target="_blank"
             rel="noopener noreferrer"
             className="w-10 h-10 bg-gray-800 hover:bg-gradient-to-br hover:from-purple-600 hover:to-pink-500 rounded-full flex items-center justify-center transition-colors"
@@ -86,7 +86,7 @@ const FooterSimple: React.FC = () => {
             Todos os direitos reservados.
           </p>
           <p className="mt-2 text-gray-500">
-            CNPJ: XX.XXX.XXX/0001-XX • Paraíba, Brasil
+            CNPJ: 38.713.701/0001-40 • João Pessoa • Paraíba, Brasil
           </p>
         </div>
       </div>
