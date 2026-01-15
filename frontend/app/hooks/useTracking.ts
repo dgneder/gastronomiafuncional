@@ -93,6 +93,46 @@ export function useTracking() {
     []
   );
 
+  const trackInitiateCheckout = useCallback(
+    async (contentName: string, contentId?: string, value?: number) => {
+      const eventId = crypto.randomUUID();
+
+      if (typeof window !== "undefined" && window.fbq) {
+        window.fbq(
+          "track",
+          "InitiateCheckout",
+          {
+            content_name: contentName,
+            content_ids: contentId ? [contentId] : undefined,
+            content_type: "product",
+            value: value,
+            currency: "BRL",
+          },
+          { eventID: eventId }
+        );
+      }
+
+      try {
+        await fetch(`${API_URL}/api/tracking/initiatecheckout`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            event_id: eventId,
+            page_url: window.location.href,
+            content_name: contentName,
+            content_id: contentId,
+            value: value,
+            fbc: getCookie("_fbc"),
+            fbp: getCookie("_fbp"),
+          }),
+        });
+      } catch (error) {
+        console.error("CAPI InitiateCheckout error:", error);
+      }
+    },
+    []
+  );
+
   const trackLead = useCallback(async (email?: string, phone?: string) => {
     const eventId = crypto.randomUUID();
 
@@ -153,5 +193,11 @@ export function useTracking() {
     }
   }, []);
 
-  return { trackViewContent, trackAddToCart, trackLead, trackPurchase };
+  return {
+    trackViewContent,
+    trackAddToCart,
+    trackInitiateCheckout,
+    trackLead,
+    trackPurchase,
+  };
 }

@@ -1,32 +1,25 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
-import FloatingNavBar from "@/app/components/sobremesas_premium/FloatingNavBar";
-import Hero from "@/app/components/sobremesas_premium/Hero";
-
-import TrendsSection from "@/app/components/sobremesas_premium/TrendsSection";
-import FunctionalTags from "@/app/components/sobremesas_premium/FunctionalTags";
-
-import VideoSectionOne from "@/app/components/sobremesas_premium/VideoSectionOne";
-import VideoSectionTwo from "@/app/components/sobremesas_premium/VideoSectionTwo";
-import VideoSectionThree from "@/app/components/sobremesas_premium/VideoSectionThree";
-import VideoSectionFour from "@/app/components/sobremesas_premium/VideoSectionFour";
-
-import DessertBenefits from "@/app/components/sobremesas_premium/DessertBenefits";
-import SocialProofSection from "@/app/components/sobremesas_premium/SocialProofSection";
-
-import CourseContent from "@/app/components/sobremesas_premium/CourseContent";
-import Benefits from "@/app/components/sobremesas_premium/Benefits";
-import Guarantee from "@/app/components/sobremesas_premium/Guarantee";
-import FAQ from "@/app/components/sobremesas_premium/FAQ";
-import Testimonials from "@/app/components/sobremesas_premium/Testimonials";
-
-import FinalCTA from "@/app/components/sobremesas_premium/FinalCTA";
-import CTASection from "@/app/components/sobremesas_premium/CTASection";
-
-import Footer from "@/app/components/sobremesas_premium/Footer";
+// Componentes base (já existentes)
+import HeroOptimized from "@/app/components/sobremesas_premium/HeroOptimized";
+import CTASectionOptimized from "@/app/components/sobremesas_premium/CTASectionOptimized";
+import BenefitsCompact from "@/app/components/sobremesas_premium/BenefitsCompact";
+import TestimonialsCarousel from "@/app/components/sobremesas_premium/TestimonialsCarousel";
+import FAQOptimized from "@/app/components/sobremesas_premium/FAQOptimized";
+import FinalCTAOptimized from "@/app/components/sobremesas_premium/FinalCTAOptimized";
+import GuaranteeCompact from "@/app/components/sobremesas_premium/GuaranteeCompact";
+import StickyCTA from "@/app/components/sobremesas_premium/StickyCTA";
+import FooterSimple from "@/app/components/sobremesas_premium/FooterSimple";
 import LGPD from "@/app/components/sobremesas_premium/LGPD";
+
+// NOVOS componentes
+import MicroSocialProof from "@/app/components/sobremesas_premium/MicroSocialProof";
+import FoodGallery from "@/app/components/sobremesas_premium/FoodGallery";
+import VideoWall from "@/app/components/sobremesas_premium/VideoWall";
+import IncludedSection from "@/app/components/sobremesas_premium/IncludedSection";
+import ExitIntentBonusPopup from "@/app/components/sobremesas_premium/ExitIntentBonusPopup";
 
 import { useTracking } from "@/app/hooks/useTracking";
 
@@ -36,7 +29,9 @@ const YAMPI_CHECKOUT_BASE_URL =
   process.env.NEXT_PUBLIC_YAMPI_CHECKOUT_URL ||
   "https://seguro.gastronomiafuncional.online/r/5Z58H25DEY";
 
-function buildCheckoutUrl(baseUrl: string) {
+function buildCheckoutUrl(baseUrl: string): string {
+  if (typeof window === "undefined") return baseUrl;
+
   const currentParams = new URLSearchParams(window.location.search);
   const url = new URL(baseUrl);
 
@@ -48,7 +43,13 @@ function buildCheckoutUrl(baseUrl: string) {
 }
 
 export default function SobremesasPremiumLandingPage() {
-  const tracking = useTracking() as any;
+  const tracking = useTracking() as {
+    trackViewContent?: (name: string, id: string, value: number) => void;
+    trackInitiateCheckout?: (name: string, id: string, value: number) => void;
+    trackLead?: (name: string, id: string, value: number) => void;
+  };
+
+  const [showStickyCTA, setShowStickyCTA] = useState(false);
 
   useEffect(() => {
     tracking?.trackViewContent?.(
@@ -58,18 +59,30 @@ export default function SobremesasPremiumLandingPage() {
     );
   }, [tracking]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const heroSection = document.getElementById("hero");
+      if (heroSection) {
+        const heroBottom = heroSection.getBoundingClientRect().bottom;
+        setShowStickyCTA(heroBottom < 0);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const handleLoginClick = () => {
     window.location.href = MEMBERKIT_URL;
   };
 
-  // 🔗 Todos os CTAs espalhados na landing chamam isso (ancoragem)
   const scrollToCTA = () => {
     const el = document.getElementById("cta");
     if (!el) return;
     el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  // 🛒 Só o botão do CTASection chama isso (checkout)
   const goToCheckout = () => {
     tracking?.trackInitiateCheckout?.(
       "Guia de Sobremesas Funcionais - Premium",
@@ -79,102 +92,140 @@ export default function SobremesasPremiumLandingPage() {
     window.location.href = buildCheckoutUrl(YAMPI_CHECKOUT_BASE_URL);
   };
 
+  // Exit popup: “bônus válido” (sem WhatsApp/manual)
+  const onAcceptBonus = () => {
+    tracking?.trackLead?.("Bônus Exit Popup", "exit-bonus", 0);
+    scrollToCTA();
+  };
+
+  // ✅ Copy mais funcional (sem “público frio”, sem “porn food”)
+  const galleryItems = [
+    {
+      src: "/sobremesas/sobremesa-relax.png",
+      alt: "Sobremesas funcionais irresistíveis",
+      label: "Sabor + saúde",
+      meta: "textura • brilho • funcional",
+    },
+    {
+      src: "/sobremesas/sobremesa-imunidade.png",
+      alt: "Sobremesa cremosa funcional",
+      label: "Cremosa e equilibrada",
+      meta: "sem açúcar refinado",
+    },
+    {
+      src: "/sobremesas/sobremesa-pele-intestino.png",
+      alt: "Sobremesa com camadas",
+      label: "Camadas perfeitas",
+      meta: "rápida e fácil",
+    },
+    {
+      src: "/sobremesas/sobremesa-familia-02.png",
+      alt: "Sobremesa com calda",
+      label: "Doce sem culpa",
+      meta: "opções de menor carga glicêmica*",
+    },
+    {
+      src: "/sobremesas/sobremesa-energia-02.png",
+      alt: "Sobremesa funcional sofisticada",
+      label: "Cara de confeitaria",
+      meta: "feito em casa",
+    },
+  ];
+
+  // ✅ Copy mais funcional (sem “visual que vende”, etc.)
+  const videos = [
+    {
+      mp4: "/videos/sobremesas-video-01-opt.mp4",
+      webm: "/videos/sobremesas-video-01-opt.webm",
+      poster: "/imagens/sobremesas-poster.jpg",
+      title: "Cremosa e deliciosa",
+      subtitle: "versão funcional",
+    },
+    {
+      mp4: "/videos/sobremesas-video-02-opt.mp4",
+      webm: "/videos/sobremesas-video-02-opt.webm",
+      poster: "/imagens/sobremesas-poster-02.jpg",
+      title: "Camadas perfeitas",
+      subtitle: "rápida de fazer",
+    },
+    {
+      mp4: "/videos/sobremesas-video-03-opt.mp4",
+      webm: "/videos/sobremesas-video-03-opt.webm",
+      poster: "/imagens/sobremesas-poster-03.jpg",
+      title: "Calda e corte",
+      subtitle: "equilíbrio e prazer",
+    },
+    {
+      mp4: "/videos/sobremesas-video-04-opt.mp4",
+      webm: "/videos/sobremesas-video-04-opt.webm",
+      poster: "/imagens/sobremesas-poster-01.jpg",
+      title: "Finalização linda",
+      subtitle: "cara de confeitaria",
+    },
+  ];
+
   return (
-    <div className="bg-white">
-      <FloatingNavBar
-        logoSrc=""
-        onLoginClick={handleLoginClick}
-        handleButtonClick={scrollToCTA}
+    <div className="bg-white overflow-x-hidden">
+      {/* Exit popup (tempo + exit intent + voltar ao topo) */}
+      <ExitIntentBonusPopup
+        delayMs={55000}
+        topReturnThresholdPx={260}
+        onAccept={onAcceptBonus}
+        onGoToCheckout={goToCheckout}
+        bonusLabel="BÔNUS VÁLIDO HOJE"
+        bonusText="Pack extra + checklist + cardápio 7 dias (acesso imediato)"
       />
 
-      <main>
-        {/* ═══════════════════════════════════════════════════════════════
-            BLOCO 1: ABERTURA + CONTEXTO
-            Objetivo: Capturar atenção e estabelecer relevância
-        ═══════════════════════════════════════════════════════════════ */}
-        
-        {/* 1) HERO - Primeira impressão */}
-        <Hero
-          title="Guia de Sobremesas Funcionais"
-          subtitle="Sobremesas que nutrem e encantam — sem abrir mão do sabor."
-          buttonText="Quero Começar Agora"
-          onButtonClick={scrollToCTA}
-        />
+      {/* HERO (CTA acima da dobra mobile) */}
+      <HeroOptimized
+        onButtonClick={goToCheckout}
+        onLoginClick={handleLoginClick}
+      />
 
-        {/* 2) TENDÊNCIA - Validação social/mercado */}
-        <TrendsSection />
+      {/* PROVA RÁPIDA (sem “ao vivo” fake) */}
+      <MicroSocialProof />
 
-        {/* ═══════════════════════════════════════════════════════════════
-            BLOCO 2: DEMONSTRAÇÃO + BENEFÍCIOS
-            Objetivo: Mostrar o produto e seus diferenciais
-        ═══════════════════════════════════════════════════════════════ */}
+      {/* GALERIA (agora com copy mais funcional) */}
+      <FoodGallery
+        title="Antes de ler qualquer coisa… olha isso 😅"
+        subtitle="Sobremesas lindas e gostosas — com ingredientes saudáveis e sem açúcar refinado."
+        items={galleryItems}
+      />
 
-        {/* 3) VÍDEO 1 - Primeira demonstração visual */}
-        <VideoSectionOne />
+      <VideoWall
+        title="Veja como ficam as sobremesas na prática"
+        subtitle="Textura, camadas e finalização — todas saudáveis e funcionais."
+        videos={videos}
+      />
 
-        {/* 4) BENEFÍCIOS VISUAIS - O que torna as sobremesas funcionais */}
-        <DessertBenefits />
+      {/* O QUE VEM + ACESSO */}
+      <IncludedSection
+        onButtonClick={goToCheckout}
+        price="R$37"
+        highlight="+150 receitas ilustradas"
+        smallNote="PDF pra ver na área de membros + download • acesso imediato • garantia 7 dias"
+      />
 
-        {/* 5) VÍDEO 2 - Mantém engajamento visual */}
-        <VideoSectionTwo />
+      {/* CTA principal */}
+      <CTASectionOptimized onButtonClick={goToCheckout} />
 
-        {/* 6) BENEFÍCIOS FUNCIONAIS - Resultados práticos */}
-        <Benefits />
+      {/* Benefícios funcionais */}
+      <BenefitsCompact />
 
-        {/* 7) CLASSIFICAÇÕES - Tags funcionais (Vegano, Low Carb, etc.) */}
-        <FunctionalTags />
+      {/* Prova social */}
+      <TestimonialsCarousel onButtonClick={scrollToCTA} />
 
-        {/* ═══════════════════════════════════════════════════════════════
-            BLOCO 3: CTA INTERMEDIÁRIO + CONTEÚDO
-            Objetivo: Capturar quem já está convencido + detalhar oferta
-        ═══════════════════════════════════════════════════════════════ */}
+      {/* Objeções */}
+      <FAQOptimized />
 
-        {/* 8) CTA COM PREÇO - Captura usuários já decididos (crucial!) */}
-        <CTASection onButtonClick={goToCheckout} />
+      {/* CTA final + garantia */}
+      <FinalCTAOptimized onButtonClick={goToCheckout} />
+      <GuaranteeCompact />
 
-        {/* 9) CONTEÚDO DO GUIA - Módulos + Bônus */}
-        <CourseContent />
+      <FooterSimple />
 
-        {/* 10) VÍDEO 3 - Reengaja antes da prova social */}
-        <VideoSectionThree />
-
-        {/* ═══════════════════════════════════════════════════════════════
-            BLOCO 4: PROVA SOCIAL + DEPOIMENTOS
-            Objetivo: Construir confiança através de outros clientes
-        ═══════════════════════════════════════════════════════════════ */}
-
-        {/* 11) PROVA SOCIAL - +1000 clientes, avaliação 4.9 */}
-        <SocialProofSection onButtonClick={scrollToCTA} />
-
-        {/* 12) DEPOIMENTOS - Histórias reais */}
-        <Testimonials onButtonClick={scrollToCTA} />
-
-        {/* ═══════════════════════════════════════════════════════════════
-            BLOCO 5: OBJEÇÕES + FECHAMENTO
-            Objetivo: Remover dúvidas e criar urgência
-        ═══════════════════════════════════════════════════════════════ */}
-
-        {/* 13) FAQ - Responde objeções racionais */}
-        <FAQ />
-
-        {/* 14) URGÊNCIA - Contador + escassez */}
-        <FinalCTA
-          buttonText="Quero Garantir com Desconto"
-          onButtonClick={scrollToCTA}
-        />
-
-        {/* 15) VÍDEO 4 - Último estímulo visual */}
-        <VideoSectionFour />
-
-        {/* 16) GARANTIA - Remove última objeção (posição final!) */}
-        <Guarantee />
-
-        {/* ═══════════════════════════════════════════════════════════════
-            RODAPÉ
-        ═══════════════════════════════════════════════════════════════ */}
-        <Footer />
-      </main>
-
+      {/* Floating */}
+      <StickyCTA isVisible={showStickyCTA} onButtonClick={goToCheckout} />
       <LGPD />
     </div>
   );
