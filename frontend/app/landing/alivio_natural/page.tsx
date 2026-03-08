@@ -33,7 +33,7 @@ const PRODUCT_PRICE = 27.0;
 
 const HOTMART_CHECKOUT_URL =
   process.env.NEXT_PUBLIC_HOTMART_ALIVIO_NATURAL_URL ||
-  "https://pay.hotmart.com/G104654378V?checkoutMode=10";
+  "https://pay.hotmart.com/G104654378V?off=7c84p65k&checkoutMode=10";
 
 // ── UTM propagation ──────────────────────────────────────────
 function buildCheckoutUrl(baseUrl: string): string {
