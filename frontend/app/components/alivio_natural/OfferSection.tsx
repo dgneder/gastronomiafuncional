@@ -9,7 +9,7 @@ interface OfferSectionProps {
 
 const OfferSection: React.FC<OfferSectionProps> = ({ onButtonClick }) => {
   const included = [
-    { label: "E-book Alívio Natural (80+ páginas)", value: "R$67" },
+    { label: "E-book Alívio Natural (80+ páginas)", value: "R$97" },
     { label: "15 fichas científicas completas", value: "" },
     { label: "6 protocolos prontos por tipo de dor", value: "" },
     { label: "Tabela mestra de preparações", value: "" },
@@ -26,7 +26,6 @@ const OfferSection: React.FC<OfferSectionProps> = ({ onButtonClick }) => {
       </div>
 
       <div className="relative z-10 max-w-2xl mx-auto px-4">
-        {/* Header da oferta */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 bg-[#D97706]/20 border border-[#D97706]/40 text-[#D4A520] px-5 py-2 rounded-full text-sm font-bold mb-4">
             <FaBolt />
@@ -40,10 +39,7 @@ const OfferSection: React.FC<OfferSectionProps> = ({ onButtonClick }) => {
           </p>
         </div>
 
-        {/* Card da oferta */}
         <div className="bg-white/8 border border-white/15 rounded-2xl p-6 backdrop-blur-sm">
-
-          {/* Itens incluídos */}
           <ul className="space-y-2.5 mb-8">
             {included.map(({ label, value }) => (
               <li key={label} className="flex items-center justify-between gap-3 py-2 border-b border-white/6">
@@ -51,37 +47,25 @@ const OfferSection: React.FC<OfferSectionProps> = ({ onButtonClick }) => {
                   <FaCheckCircle className="text-[#A3D977] shrink-0 text-xs" />
                   <span className="text-white/90 text-sm">{label}</span>
                 </div>
-                {value && (
-                  <span className="text-white/40 text-xs line-through shrink-0">{value}</span>
-                )}
+                {value && <span className="text-white/40 text-xs line-through shrink-0">{value}</span>}
               </li>
             ))}
           </ul>
 
-          {/* Preço final */}
           <div className="text-center mb-6">
-            <p className="text-white/40 text-sm line-through mb-1">
-              Valor total: R$113,90
-            </p>
+            <p className="text-white/40 text-sm line-through mb-1">Valor total: R$143,90</p>
             <div className="flex items-baseline justify-center gap-2">
-              <span className="text-5xl font-black text-[#D4A520]">R$27</span>
+              <span className="text-5xl font-black text-[#D4A520]">R$47</span>
               <span className="text-white/60 text-sm">pagamento único</span>
             </div>
-            <p className="text-white/50 text-xs mt-1">ou 3x de R$9,58 sem juros no cartão</p>
+            <p className="text-white/50 text-xs mt-1">ou em até 5x no cartão</p>
           </div>
 
-          {/* CTA */}
-          <button
-            onClick={onButtonClick}
-            className="w-full py-5 bg-linear-to-r from-[#D97706] to-[#B45309] hover:brightness-110 text-white font-black text-xl rounded-xl shadow-[0_8px_30px_rgba(217,119,6,0.4)] transform hover:scale-[1.01] transition-all duration-200 flex flex-col items-center"
-          >
+          <button onClick={onButtonClick} className="w-full py-5 bg-linear-to-r from-[#D97706] to-[#B45309] hover:brightness-110 text-white font-black text-xl rounded-xl shadow-[0_8px_30px_rgba(217,119,6,0.4)] transform hover:scale-[1.01] transition-all duration-200 flex flex-col items-center">
             <span>QUERO MEU ACESSO AGORA →</span>
-            <span className="text-[11px] font-normal opacity-80 mt-0.5 uppercase tracking-wide">
-              Pagamento 100% seguro • Acesso imediato
-            </span>
+            <span className="text-[11px] font-normal opacity-80 mt-0.5 uppercase tracking-wide">Pagamento 100% seguro • Acesso imediato</span>
           </button>
 
-          {/* Trust badges */}
           <div className="flex flex-wrap items-center justify-center gap-4 mt-5">
             <div className="flex items-center gap-1.5 text-xs text-white/50">
               <FaShieldAlt className="text-[#A3D977]" />
@@ -102,4 +86,3 @@ const OfferSection: React.FC<OfferSectionProps> = ({ onButtonClick }) => {
 };
 
 export default OfferSection;
-

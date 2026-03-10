@@ -48,22 +48,16 @@ const BonusSection: React.FC = () => {
             Você recebe muito mais
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-[#1E2A10] leading-tight">
-            2 Guias Bônus{" "}
-            <span className="text-[#4A7C29]">incluídos sem custo extra</span>
+            2 Guias Bônus <span className="text-[#4A7C29]">incluídos sem custo extra</span>
           </h2>
         </div>
 
         <div className="space-y-5">
           {bonuses.map(({ tag, title, subtitle, value, desc, items, accent, tagColor }) => (
-            <div
-              key={title}
-              className={`bg-white rounded-2xl border-2 ${accent} overflow-hidden shadow-sm hover:shadow-md transition-shadow`}
-            >
+            <div key={title} className={`bg-white rounded-2xl border-2 ${accent} overflow-hidden shadow-sm hover:shadow-md transition-shadow`}>
               <div className="p-5 md:p-6">
                 <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
-                  <span className={`text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider ${tagColor}`}>
-                    {tag}
-                  </span>
+                  <span className={`text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider ${tagColor}`}>{tag}</span>
                   <span className="text-sm font-bold text-gray-400 line-through">{value}</span>
                 </div>
                 <h3 className="text-lg font-extrabold text-[#1E2A10] mb-0.5">{title}</h3>
@@ -82,13 +76,12 @@ const BonusSection: React.FC = () => {
           ))}
         </div>
 
-        {/* Valor total */}
         <div className="mt-8 bg-[#1E2A10] rounded-2xl p-6 text-center text-white">
           <p className="text-white/70 text-sm mb-1">Tudo junto, o valor seria:</p>
           <div className="flex items-center justify-center gap-4 flex-wrap">
             <div className="text-center">
               <p className="text-white/50 text-xs">Alívio Natural</p>
-              <p className="text-[#D4A520] font-black text-lg">R$67</p>
+              <p className="text-[#D4A520] font-black text-lg">R$97</p>
             </div>
             <span className="text-white/30 text-2xl">+</span>
             <div className="text-center">
@@ -102,12 +95,12 @@ const BonusSection: React.FC = () => {
             </div>
             <span className="text-white/30 text-2xl">=</span>
             <div className="text-center">
-              <p className="text-white/50 text-xs line-through">R$113,90</p>
-              <p className="text-white font-black text-3xl">R$27</p>
+              <p className="text-white/50 text-xs line-through">R$143,90</p>
+              <p className="text-white font-black text-3xl">R$47</p>
             </div>
           </div>
           <p className="text-[#A3D977] text-xs mt-2 font-semibold">
-            Tudo por R$27 — menos que uma caixa de anti-inflamatório
+            Tudo por R$47 — menos que uma caixa de anti-inflamatório
           </p>
         </div>
       </div>
