@@ -7,7 +7,6 @@ import { FaArrowRight, FaLock } from "react-icons/fa";
 // CONFIGURAÇÃO ATUALIZADA
 // ═══════════════════════════════════════════════════════════════
 const HOTMART_CHECKOUT_URL = "https://pay.hotmart.com/D104951400K";
-const COUPON_CODE = "LANCAMENTO";
 const WEBHOOK_URL = "https://webhook.sellflux.app/v2/webhook/form/5e4a5e9974dfba45daac4282ac242c91";
 // ═══════════════════════════════════════════════════════════════
 
@@ -19,13 +18,12 @@ const Form: React.FC = () => {
   // Lógica de URL passando os dados para pré-preencher 100% do checkout
   const buildCheckoutUrl = (email: string, name: string, phone: string) => {
     const params = new URLSearchParams();
-    params.set("offDiscount", COUPON_CODE);
     params.set("checkoutMode", "10"); // Checkout limpo
     
     if (email) params.set("email", email);
     if (name) params.set("name", name);
     if (phone) {
-      // Limpa a máscara para a Hotmart aceitar o número
+      // Limpa a máscara para a Hotmart aceitar o número perfeitamente
       const cleanPhone = phone.replace(/\D/g, ""); 
       params.set("phonenumber", cleanPhone);
     }
@@ -60,6 +58,7 @@ const Form: React.FC = () => {
         formRef.current.submit(); // Envia pro Sellflux e ele joga pra Hotmart
       }
     } else {
+      // Fallback de segurança: se o webhook falhar, joga direto pra Hotmart
       window.location.href = checkoutUrl;
     }
   };
