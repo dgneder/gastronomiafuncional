@@ -4,11 +4,11 @@ import { useTracking } from "@/app/hooks/useTracking";
 import { FaArrowRight, FaLock } from "react-icons/fa";
 
 // ═══════════════════════════════════════════════════════════════
-// CONFIGURAÇÃO
+// CONFIGURAÇÃO ATUALIZADA
 // ═══════════════════════════════════════════════════════════════
-const HOTMART_CHECKOUT_URL = "https://pay.hotmart.com/SEU_HOTLINK_AQUI";
+const HOTMART_CHECKOUT_URL = "https://pay.hotmart.com/D104951400K";
 const COUPON_CODE = "LANCAMENTO";
-const WEBHOOK_URL = "https://webhook.sellflux.com/webhook/v2/form/lead/SEU_WEBHOOK_ID_AQUI";
+const WEBHOOK_URL = "https://webhook.sellflux.app/v2/webhook/form/5e4a5e9974dfba45daac4282ac242c91";
 // ═══════════════════════════════════════════════════════════════
 
 const Form: React.FC = () => {
@@ -16,16 +16,16 @@ const Form: React.FC = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Nova lógica de URL passando o telefone para pré-preencher 100% do checkout
+  // Lógica de URL passando os dados para pré-preencher 100% do checkout
   const buildCheckoutUrl = (email: string, name: string, phone: string) => {
     const params = new URLSearchParams();
     params.set("offDiscount", COUPON_CODE);
-    params.set("checkoutMode", "10"); // Checkout limpo, sem header
+    params.set("checkoutMode", "10"); // Checkout limpo
     
     if (email) params.set("email", email);
     if (name) params.set("name", name);
     if (phone) {
-      // Limpa a máscara (parênteses, espaços e traços) para a Hotmart
+      // Limpa a máscara para a Hotmart aceitar o número
       const cleanPhone = phone.replace(/\D/g, ""); 
       params.set("phonenumber", cleanPhone);
     }
@@ -42,21 +42,22 @@ const Form: React.FC = () => {
     const email = formData.get("email") as string;
     const phone = formData.get("phone") as string;
 
-    // Track lead event (Meta Pixel + CAPI)
+    // Dispara o Pixel/CAPI do Meta
     try {
       await trackLead(email, phone);
     } catch {
-      // Ignora erro de tracking para não bloquear o redirect da venda
+      // Ignora erro para não travar a venda
     }
 
     const checkoutUrl = buildCheckoutUrl(email, name, phone);
 
-    // Lógica do Webhook ou Redirecionamento Direto
-    if (WEBHOOK_URL && WEBHOOK_URL !== "https://webhook.sellflux.com/webhook/v2/form/lead/SEU_WEBHOOK_ID_AQUI") {
+    // Redirecionamento Dinâmico via Sellflux
+    if (WEBHOOK_URL) {
       const webhookWithRedirect = `${WEBHOOK_URL}?redirect_url=${encodeURIComponent(checkoutUrl)}`;
+      
       if (formRef.current) {
         formRef.current.action = webhookWithRedirect;
-        formRef.current.submit();
+        formRef.current.submit(); // Envia pro Sellflux e ele joga pra Hotmart
       }
     } else {
       window.location.href = checkoutUrl;
@@ -77,7 +78,7 @@ const Form: React.FC = () => {
       onSubmit={handleSubmit}
       className="space-y-4"
     >
-      {/* Name */}
+      {/* Nome */}
       <div className="space-y-1.5">
         <label htmlFor="name" className="text-stone-300 font-medium text-sm">
           Nome completo
@@ -92,7 +93,7 @@ const Form: React.FC = () => {
         />
       </div>
 
-      {/* Email */}
+      {/* E-mail */}
       <div className="space-y-1.5">
         <label htmlFor="email" className="text-stone-300 font-medium text-sm">
           Seu melhor e-mail
@@ -107,7 +108,7 @@ const Form: React.FC = () => {
         />
       </div>
 
-      {/* Phone */}
+      {/* Telefone */}
       <div className="space-y-1.5">
         <label htmlFor="phone" className="text-stone-300 font-medium text-sm">
           WhatsApp
@@ -134,10 +135,10 @@ const Form: React.FC = () => {
         </p>
       </div>
 
-      {/* Hidden DDI field for webhook compatibility */}
+      {/* DDI oculto exigido pelo Sellflux */}
       <input type="hidden" name="ddi" value="55" />
 
-      {/* Submit button */}
+      {/* Botão de Envio */}
       <button
         type="submit"
         disabled={isSubmitting}
@@ -164,7 +165,7 @@ const Form: React.FC = () => {
         )}
       </button>
 
-      {/* Security note */}
+      {/* Nota de Segurança */}
       <p className="text-center text-stone-500 text-xs flex items-center justify-center gap-1.5">
         <FaLock className="text-green-500" />
         Seus dados estão protegidos e não serão compartilhados.
