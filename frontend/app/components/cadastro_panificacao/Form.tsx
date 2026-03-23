@@ -19,15 +19,15 @@ const Form: React.FC = () => {
   const buildCheckoutUrl = (email: string, name: string, phone: string) => {
     const params = new URLSearchParams();
     params.set("checkoutMode", "10"); // Checkout limpo
-    
+
     if (email) params.set("email", email);
     if (name) params.set("name", name);
     if (phone) {
       // Limpa a máscara para a Hotmart aceitar o número perfeitamente
-      const cleanPhone = phone.replace(/\D/g, ""); 
+      const cleanPhone = phone.replace(/\D/g, "");
       params.set("phonenumber", cleanPhone);
     }
-    
+
     return `${HOTMART_CHECKOUT_URL}?${params.toString()}`;
   };
 
@@ -52,7 +52,7 @@ const Form: React.FC = () => {
     // Redirecionamento Dinâmico via Sellflux
     if (WEBHOOK_URL) {
       const webhookWithRedirect = `${WEBHOOK_URL}?redirect_url=${encodeURIComponent(checkoutUrl)}`;
-      
+
       if (formRef.current) {
         formRef.current.action = webhookWithRedirect;
         formRef.current.submit(); // Envia pro Sellflux e ele joga pra Hotmart
@@ -75,11 +75,11 @@ const Form: React.FC = () => {
       ref={formRef}
       method="post"
       onSubmit={handleSubmit}
-      className="space-y-4"
+      className="space-y-3 lg:space-y-4"
     >
       {/* Nome */}
-      <div className="space-y-1.5">
-        <label htmlFor="name" className="text-stone-300 font-medium text-sm">
+      <div className="space-y-1">
+        <label htmlFor="name" className="text-stone-300 font-medium text-xs lg:text-sm">
           Nome completo
         </label>
         <input
@@ -88,13 +88,13 @@ const Form: React.FC = () => {
           name="name"
           placeholder="Seu nome"
           required
-          className="w-full px-4 py-3.5 bg-stone-800 border border-stone-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 text-white placeholder-stone-500 transition-all"
+          className="w-full px-4 py-3 lg:py-3.5 bg-stone-800 border border-stone-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 text-white placeholder-stone-500 transition-all text-sm"
         />
       </div>
 
       {/* E-mail */}
-      <div className="space-y-1.5">
-        <label htmlFor="email" className="text-stone-300 font-medium text-sm">
+      <div className="space-y-1">
+        <label htmlFor="email" className="text-stone-300 font-medium text-xs lg:text-sm">
           Seu melhor e-mail
         </label>
         <input
@@ -103,13 +103,13 @@ const Form: React.FC = () => {
           name="email"
           placeholder="nome@email.com"
           required
-          className="w-full px-4 py-3.5 bg-stone-800 border border-stone-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 text-white placeholder-stone-500 transition-all"
+          className="w-full px-4 py-3 lg:py-3.5 bg-stone-800 border border-stone-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 text-white placeholder-stone-500 transition-all text-sm"
         />
       </div>
 
       {/* Telefone */}
-      <div className="space-y-1.5">
-        <label htmlFor="phone" className="text-stone-300 font-medium text-sm">
+      <div className="space-y-1">
+        <label htmlFor="phone" className="text-stone-300 font-medium text-xs lg:text-sm">
           WhatsApp
         </label>
         <div className="flex">
@@ -126,10 +126,10 @@ const Form: React.FC = () => {
             onChange={(e) => {
               e.target.value = formatPhone(e.target.value);
             }}
-            className="w-full px-4 py-3.5 bg-stone-800 border border-stone-600 rounded-r-xl focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 text-white placeholder-stone-500 transition-all"
+            className="w-full px-4 py-3 lg:py-3.5 bg-stone-800 border border-stone-600 rounded-r-xl focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 text-white placeholder-stone-500 transition-all text-sm"
           />
         </div>
-        <p className="text-stone-500 text-xs">
+        <p className="text-stone-500 text-[10px] lg:text-xs">
           Enviaremos seu acesso e materiais bônus por aqui.
         </p>
       </div>
@@ -141,7 +141,7 @@ const Form: React.FC = () => {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="group w-full py-4 text-lg font-bold text-white rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+        className="group w-full py-3.5 lg:py-4 text-base lg:text-lg font-bold text-white rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-3"
         style={{
           background: isSubmitting
             ? "#6B3A2A"
@@ -158,16 +158,16 @@ const Form: React.FC = () => {
           </>
         ) : (
           <>
-            Ir para Pagamento Seguro
+            Garantir por R$37 — Pagamento Seguro
             <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
           </>
         )}
       </button>
 
       {/* Nota de Segurança */}
-      <p className="text-center text-stone-500 text-xs flex items-center justify-center gap-1.5">
+      <p className="text-center text-stone-500 text-[10px] lg:text-xs flex items-center justify-center gap-1.5">
         <FaLock className="text-green-500" />
-        Seus dados estão protegidos e não serão compartilhados.
+        Seus dados estão protegidos · Garantia de 7 dias
       </p>
     </form>
   );
