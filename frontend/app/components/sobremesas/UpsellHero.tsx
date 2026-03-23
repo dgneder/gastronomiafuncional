@@ -15,7 +15,7 @@ const UpsellHero: React.FC = () => {
 
         {/* Headline de Confirmação */}
         <h1 className="text-3xl md:text-5xl font-extrabold text-gray-800 mb-6 leading-tight">
-          Sua inscrição nas Trufas foi <span className="text-green-600">CONFIRMADA!</span> 🎉
+          Sua inscrição no Pão Sem Culpa foi <span className="text-green-600">CONFIRMADA!</span> 🎉
         </h1>
 
         {/* A Oferta Irrecusável */}
