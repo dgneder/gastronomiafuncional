@@ -2,6 +2,7 @@
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import Image from "next/image";
 
 type GalleryItem = {
   src: string;
@@ -13,10 +14,9 @@ type GalleryItem = {
 interface FoodGalleryProps {
   title?: string;
   subtitle?: string;
-  items: GalleryItem[];
+  items?: GalleryItem[];
 }
 
-// ─── Itens padrão — substitua os src pelas suas imagens Midjourney finalizadas ───
 const DEFAULT_ITEMS: GalleryItem[] = [
   { src: "/panificacao/gallery/frigideira.jpg",    alt: "Pão de frigideira funcional",      label: "Pão de Frigideira",      meta: "10 min · SG · DIA" },
   { src: "/panificacao/gallery/sourdough.jpg",     alt: "Sourdough funcional fatiado",      label: "Sourdough 48h",          meta: "Fermentação Natural · LC" },
@@ -50,26 +50,20 @@ export default function FoodGallery({
     child.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
   };
 
-  const next = () => scrollToIndex(active + 1);
-  const prev = () => scrollToIndex(active - 1);
-
   useEffect(() => {
     const el = trackRef.current;
     if (!el) return;
-
     const onScroll = () => {
       const children = Array.from(el.children) as HTMLElement[];
       if (!children.length) return;
       const center = el.scrollLeft + el.clientWidth / 2;
-      let bestIdx = 0;
-      let bestDist = Infinity;
+      let bestIdx = 0, bestDist = Infinity;
       children.forEach((c, i) => {
         const dist = Math.abs(c.offsetLeft + c.clientWidth / 2 - center);
         if (dist < bestDist) { bestDist = dist; bestIdx = i; }
       });
       setActive(bestIdx);
     };
-
     el.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
     return () => el.removeEventListener("scroll", onScroll);
@@ -78,18 +72,15 @@ export default function FoodGallery({
   return (
     <section className="py-8 px-0" style={{ background: "linear-gradient(180deg, #2D1B12, #1A110A)" }}>
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
         <div className="text-center mb-6 px-4">
           <h2 className="text-xl font-extrabold text-white">{title}</h2>
           {subtitle && <p className="text-stone-400 text-sm mt-1">{subtitle}</p>}
         </div>
 
-        {/* Carrossel */}
         <div className="relative">
-          {/* Setas */}
           <button
             aria-label="Anterior"
-            onClick={prev}
+            onClick={() => scrollToIndex(active - 1)}
             disabled={active <= 0}
             className="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-stone-900/80 backdrop-blur shadow-lg flex items-center justify-center border border-stone-700/50 disabled:opacity-20 disabled:cursor-not-allowed hover:bg-stone-800 transition"
           >
@@ -98,35 +89,30 @@ export default function FoodGallery({
 
           <button
             aria-label="Próximo"
-            onClick={next}
+            onClick={() => scrollToIndex(active + 1)}
             disabled={active >= safeItems.length - 1}
             className="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-stone-900/80 backdrop-blur shadow-lg flex items-center justify-center border border-stone-700/50 disabled:opacity-20 disabled:cursor-not-allowed hover:bg-stone-800 transition"
           >
             <FaChevronRight className="text-amber-400 text-xs" />
           </button>
 
-          {/* Track */}
           <div
             ref={trackRef}
             className="flex gap-3 overflow-x-auto pb-3 px-4 snap-x snap-mandatory scroll-smooth"
             style={{ WebkitOverflowScrolling: "touch", scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
             {safeItems.map((item, idx) => (
-              <div
-                key={idx}
-                className="min-w-[78%] sm:min-w-[44%] lg:min-w-[30%] snap-center"
-              >
+              <div key={idx} className="min-w-[78%] sm:min-w-[44%] lg:min-w-[30%] snap-center">
                 <div className="rounded-xl overflow-hidden shadow-xl border border-stone-700/40 bg-stone-900">
                   <div className="relative">
-                    <img
+                    <Image
                       src={item.src}
                       alt={item.alt}
-                      className="w-full h-52 sm:h-56 object-cover"
+                      fill
+                      className="object-cover"
                       loading="lazy"
                     />
-                    {/* Overlay gradient */}
                     <div className="absolute inset-0 bg-linear-to-t from-stone-900/80 via-transparent to-transparent" />
-                    {/* Label */}
                     {(item.label || item.meta) && (
                       <div className="absolute bottom-3 left-3 right-3">
                         {item.label && (
@@ -143,7 +129,6 @@ export default function FoodGallery({
             ))}
           </div>
 
-          {/* Indicadores */}
           <div className="mt-3 flex items-center justify-center gap-1.5">
             {safeItems.map((_, i) => (
               <button

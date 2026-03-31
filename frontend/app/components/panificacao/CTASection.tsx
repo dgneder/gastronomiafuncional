@@ -12,7 +12,7 @@ const CTASection: React.FC<CTAProps> = ({ onButtonClick }) => {
   return (
     <section id="cta" className="py-20 px-6 lg:px-12 bg-white" data-aos="fade-up">
       <div className="max-w-5xl mx-auto">
-        <div className="lg:flex lg:items-center lg:gap-12 bg-gradient-to-br from-stone-50 to-amber-50/50 rounded-3xl p-8 lg:p-12 border border-amber-100 shadow-lg">
+        <div className="lg:flex lg:items-center lg:gap-12 bg-linear-to-br from-stone-50 to-amber-50/50 rounded-3xl p-8 lg:p-12 border border-amber-100 shadow-lg">
 
           {/* Left — Content */}
           <div className="lg:w-1/2 space-y-6">

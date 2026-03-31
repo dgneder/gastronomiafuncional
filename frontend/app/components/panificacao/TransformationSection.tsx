@@ -69,9 +69,9 @@ const TransformationSection: React.FC<TransformationProps> = ({ onButtonClick })
         </div>
 
         <div className="max-w-4xl mx-auto mb-12" data-aos="zoom-in">
-          <div className="relative w-full aspect-video md:aspect-[21/9] rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
+          <div className="relative w-full aspect-video md:aspect-21/9 rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
             <Image src="/panificacao/resultado_real.jpeg" alt="Interior macio e perfeito do pão funcional" fill className="object-cover" />
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-stone-900/90 via-stone-900/40 to-transparent p-6 md:p-8">
+            <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-stone-900/90 via-stone-900/40 to-transparent p-6 md:p-8">
               <p className="text-white font-extrabold text-2xl md:text-3xl drop-shadow-lg mb-1">Textura e maciez de verdade</p>
               <p className="text-amber-200 text-sm md:text-base drop-shadow-md font-medium">O resultado visual da ciência aplicada aos ingredientes certos.</p>
             </div>
