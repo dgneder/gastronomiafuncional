@@ -8,7 +8,7 @@ const recipes = [
     module: "Módulo A",
     title: "Pães Rápidos",
     subtitle: "10 a 15 minutos, sem fermentação",
-    count: "5 receitas",
+    count: "42 receitas",
     color: "#C4622D",
     image: "/panificacao/rec_rapidos.png",
     highlight: "Pão de Frigideira em 10 min",
@@ -17,7 +17,7 @@ const recipes = [
     module: "Módulo B",
     title: "Pães do Dia a Dia",
     subtitle: "Com fermento biológico",
-    count: "6 receitas",
+    count: "51 receitas",
     color: "#8B5A3C",
     image: "/panificacao/rec_diadia.png",
     highlight: "Pão de Forma Funcional",
@@ -26,7 +26,7 @@ const recipes = [
     module: "Módulo C",
     title: "Pães Artesanais",
     subtitle: "Com levain e fermentação lenta",
-    count: "5 receitas",
+    count: "48 receitas",
     color: "#6B3A2A",
     image: "/panificacao/rec_artesanais.png",
     highlight: "Sourdough Funcional 48h",
@@ -35,7 +35,7 @@ const recipes = [
     module: "Módulo D",
     title: "Pães Especiais",
     subtitle: "Formulados por necessidade",
-    count: "6 receitas",
+    count: "58 receitas",
     color: "#5B7B6D",
     image: "/panificacao/rec_especiais.png",
     highlight: "Cetogênico · Renal · Anti-inflamatório",
@@ -44,7 +44,7 @@ const recipes = [
     module: "Módulo E",
     title: "Além do Pão",
     subtitle: "Pizza, crackers, grissini e mais",
-    count: "5 receitas",
+    count: "47 receitas",
     color: "#D4A04A",
     image: "/panificacao/rec_alemdopao.png",
     highlight: "Pizza de Longa Fermentação",
@@ -61,7 +61,7 @@ const RecipeShowcase: React.FC = () => {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-14">
           <p className="text-sm uppercase tracking-widest font-semibold mb-3" style={{ color: "#C4622D" }}>
-            27 receitas em 5 módulos
+            246 receitas em 5 módulos
           </p>
           <h2 className="text-3xl lg:text-4xl font-extrabold text-stone-800">
             De pão em <span style={{ color: "#6B3A2A" }}>10 minutos</span> a{" "}
@@ -80,7 +80,6 @@ const RecipeShowcase: React.FC = () => {
               data-aos-delay={i * 80}
               className="group rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 bg-white border border-stone-100 hover:-translate-y-1"
             >
-              {/* Ajuste feito aqui: w-full e aspect-square no lugar de h-48 */}
               <div className="relative w-full aspect-square overflow-hidden bg-stone-100">
                 <Image
                   src={rec.image}
@@ -88,7 +87,7 @@ const RecipeShowcase: React.FC = () => {
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                 <div className="absolute top-4 left-4">
                   <span
                     className="px-3 py-1 rounded-full text-xs font-bold text-white shadow-sm"

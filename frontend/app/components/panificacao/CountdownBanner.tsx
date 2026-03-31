@@ -1,29 +1,42 @@
 "use client";
-import React, { useEffect, useState, useMemo } from "react";
+
+import React, { useEffect, useState } from "react";
 
 const CountdownBanner: React.FC = () => {
   const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
 
-  const deadline = useMemo(() => {
-    const d = new Date();
-    d.setHours(d.getHours() + 24);
-    return d;
-  }, []);
-
   useEffect(() => {
-    const interval = setInterval(() => {
+    // Como o componente tem ssr: false no page.tsx, o localStorage já está 100% disponível
+    const savedDeadline = window.localStorage.getItem("ps_launch_deadline");
+    let targetDate: number;
+
+    if (savedDeadline && !isNaN(Number(savedDeadline))) {
+      targetDate = parseInt(savedDeadline, 10);
+    } else {
+      targetDate = Date.now() + 24 * 60 * 60 * 1000;
+      window.localStorage.setItem("ps_launch_deadline", targetDate.toString());
+    }
+
+    const updateTimer = () => {
       const now = Date.now();
-      const distance = deadline.getTime() - now;
+      const distance = targetDate - now;
+
       if (distance > 0) {
         setTimeLeft({
           hours: Math.floor(distance / (1000 * 60 * 60)),
           minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
           seconds: Math.floor((distance % (1000 * 60)) / 1000),
         });
+      } else {
+        setTimeLeft({ hours: 0, minutes: 0, seconds: 0 });
       }
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [deadline]);
+    };
+
+    updateTimer();
+    const interval = window.setInterval(updateTimer, 1000);
+
+    return () => window.clearInterval(interval);
+  }, []);
 
   return (
     <div className="px-6 py-3 bg-amber-900/20 border-b border-stone-700/50">
@@ -38,7 +51,7 @@ const CountdownBanner: React.FC = () => {
             { value: timeLeft.seconds, label: "s" },
           ].map((unit, i) => (
             <div key={i} className="flex items-center">
-              <span className="bg-stone-800 text-amber-400 font-mono font-bold text-sm px-1.5 py-0.5 rounded">
+              <span className="bg-stone-800 text-amber-400 font-mono font-bold text-sm px-1.5 py-0.5 rounded shadow-inner border border-stone-700/50">
                 {String(unit.value).padStart(2, "0")}
               </span>
               <span className="text-stone-500 text-xs ml-0.5">{unit.label}</span>

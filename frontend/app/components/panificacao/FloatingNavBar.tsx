@@ -12,9 +12,7 @@ const FloatingNavBar: React.FC<FloatingNavBarProps> = ({ onLoginClick, handleBut
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsVisible(window.scrollY > 400);
-    };
+    const handleScroll = () => setIsVisible(window.scrollY > 400);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -28,13 +26,15 @@ const FloatingNavBar: React.FC<FloatingNavBarProps> = ({ onLoginClick, handleBut
           <div className="flex items-center gap-2">
             <FaBreadSlice style={{ color: "#6B3A2A" }} />
             <span className="font-bold text-stone-800 text-sm hidden sm:inline">Pão Sem Culpa</span>
+            <span className="hidden md:inline-flex items-center gap-1.5 ml-3 bg-amber-50 border border-amber-200 rounded-full px-3 py-0.5">
+              <span className="text-stone-400 line-through text-xs">R$97</span>
+              <span className="text-sm font-extrabold" style={{ color: "#6B3A2A" }}>R$47</span>
+              <span className="text-[10px] font-bold text-green-700 bg-green-50 border border-green-200 px-1.5 py-0.5 rounded-full ml-1">LANÇAMENTO</span>
+            </span>
           </div>
 
           <div className="flex items-center gap-3">
-            <button
-              onClick={onLoginClick}
-              className="text-sm text-stone-500 hover:text-stone-700 transition-colors hidden sm:inline"
-            >
+            <button onClick={onLoginClick} className="text-sm text-stone-500 hover:text-stone-700 transition-colors hidden sm:inline">
               Já sou aluno
             </button>
             <button
@@ -42,7 +42,7 @@ const FloatingNavBar: React.FC<FloatingNavBarProps> = ({ onLoginClick, handleBut
               className="flex items-center gap-2 px-5 py-2.5 text-sm font-bold text-white rounded-lg transition-all hover:scale-[1.03]"
               style={{ background: "linear-gradient(135deg, #6B3A2A, #8B5A3C)" }}
             >
-              <span>Garantir Acesso</span>
+              <span>Garantir por R$47</span>
               <FaArrowRight className="text-xs" />
             </button>
           </div>
@@ -50,10 +50,7 @@ const FloatingNavBar: React.FC<FloatingNavBarProps> = ({ onLoginClick, handleBut
       </div>
 
       <style jsx>{`
-        @keyframes slideDown {
-          from { transform: translateY(-100%); opacity: 0; }
-          to { transform: translateY(0); opacity: 1; }
-        }
+        @keyframes slideDown { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         .animate-slideDown { animation: slideDown 0.3s ease-out; }
       `}</style>
     </div>

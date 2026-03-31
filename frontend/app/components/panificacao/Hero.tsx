@@ -2,22 +2,86 @@
 
 import Image from "next/image";
 import React from "react";
-import { FaArrowRight, FaClock, FaHeartbeat, FaSeedling } from "react-icons/fa";
+import { FaArrowRight } from "react-icons/fa";
 
 interface HeroProps {
   onButtonClick: () => void;
+}
+
+const anchors = [
+  { icon: "🏷️", label: "De R$97 por R$47",       sub: "52% OFF · lançamento"      },
+  { icon: "📚", label: "Área de membros",          sub: "11 módulos navegáveis"     },
+  { icon: "🔒", label: "Hotmart",                  sub: "Pagamento seguro"          },
+  { icon: "🛡️", label: "Garantia 7 dias",          sub: "Acesso imediato"           },
+];
+
+function MockupStrip() {
+  return (
+    <div
+      className="flex items-center gap-5 rounded-2xl p-5 border border-amber-200 shadow-sm"
+      style={{ background: "linear-gradient(135deg, #FFF8F0, #FAF3E8)" }}
+    >
+      <div className="relative w-20 h-28 lg:w-24 lg:h-32 rounded-xl overflow-hidden shadow-lg border-2 border-white shrink-0">
+        <Image
+          src="/panificacao/mockup_ebook.jpeg"
+          alt="Mockup do ebook Pão Sem Culpa"
+          fill
+          className="object-cover"
+        />
+      </div>
+      <div className="flex-1 min-w-0">
+        <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "#C4622D" }}>
+          O que você recebe
+        </p>
+        <ul className="space-y-1">
+          {[
+            "246 receitas com base científica",
+            "12 capítulos de ciência aplicada",
+            "Área de membros — 11 módulos",
+            "50 Sanduíches Naturais + bônus",
+          ].map((item, i) => (
+            <li key={i} className="flex items-center gap-2 text-stone-600">
+              <span
+                className="w-4 h-4 rounded-full flex items-center justify-center shrink-0 text-white text-[9px]"
+                style={{ backgroundColor: "#6B3A2A" }}
+              >
+                ✓
+              </span>
+              <span className="text-[13px]">{item}</span>
+            </li>
+          ))}
+        </ul>
+        <div className="flex items-baseline gap-2 mt-3 pt-3 border-t border-amber-200">
+          <span className="text-stone-400 line-through text-sm">R$97</span>
+          <span className="text-2xl font-extrabold" style={{ color: "#6B3A2A" }}>R$47</span>
+          <span
+            className="text-[11px] font-bold px-2 py-0.5 rounded-full"
+            style={{ backgroundColor: "#22C55E15", color: "#15803D", border: "1px solid #22C55E30" }}
+          >
+            lançamento
+          </span>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 const Hero: React.FC<HeroProps> = ({ onButtonClick }) => {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center"
+      className="relative pt-6 pb-12 lg:py-20"
       style={{
-        background: "linear-gradient(135deg, #F5E6CC 0%, #FAF3E8 30%, #FFF8F0 60%, #F5E6CC 100%)",
+        background: "linear-gradient(160deg, #F5E6CC 0%, #FAF3E8 40%, #FFF8F0 70%, #F5E6CC 100%)",
       }}
     >
-      {/* Decorative grain overlay */}
+      {/* Barra decorativa topo */}
+      <div
+        className="absolute top-0 left-0 right-0 h-1"
+        style={{ background: "linear-gradient(90deg, #D4A04A, #C4622D, #D4A04A)" }}
+      />
+
+      {/* Grain overlay */}
       <div
         className="absolute inset-0 opacity-[0.03] pointer-events-none"
         style={{
@@ -25,109 +89,135 @@ const Hero: React.FC<HeroProps> = ({ onButtonClick }) => {
         }}
       />
 
-      {/* Top decorative bar */}
-      <div className="absolute top-0 left-0 right-0 h-1" style={{ background: "linear-gradient(90deg, #D4A04A, #C4622D, #D4A04A)" }} />
+      <div className="relative z-10 max-w-7xl mx-auto px-5 lg:px-12 w-full">
+        <div className="lg:grid lg:grid-cols-2 lg:gap-14 lg:items-start">
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-24 w-full">
-        <div className="lg:flex lg:items-center lg:gap-16">
-          {/* Left content */}
-          <div className="lg:w-1/2 space-y-8" data-aos="fade-right">
-            {/* Pre-title badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-amber-700/20 bg-white/60 backdrop-blur-sm">
-              <FaSeedling className="text-amber-700 text-sm" />
+          {/* ═══════════════════════════════════════════
+              COLUNA ESQUERDA — copy + botão + âncoras
+          ═══════════════════════════════════════════ */}
+          <div className="flex flex-col" data-aos="fade-right">
+
+            {/* Badge coleção */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-amber-700/20 bg-white/70 backdrop-blur-sm w-fit mb-5">
+              <span className="text-sm">🌿</span>
               <span className="text-xs font-semibold uppercase tracking-widest text-amber-800">
                 Coleção Gastronomia Funcional
               </span>
             </div>
 
-            {/* Headline Otimizada: Desejo + Mecanismo + Objeção */}
-            <h1 className="text-4xl lg:text-[3.4rem] font-extrabold leading-[1.1] text-stone-800">
-              Abandone o medo do glúten com pães caseiros de{" "}
-              <span
-                className="relative inline-block"
-                style={{ color: "#6B3A2A" }}
-              >
-                textura real
-                <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 300 12" fill="none">
-                  <path d="M2 8C50 3 100 2 150 5C200 8 250 4 298 7" stroke="#D4A04A" strokeWidth="3" strokeLinecap="round" />
+            {/* HEADLINE */}
+            <h1 className="text-4xl lg:text-5xl font-extrabold leading-[1.1] text-stone-800 mb-4">
+              Aprenda a ciência da{" "}
+              <span className="relative inline-block" style={{ color: "#6B3A2A" }}>
+                panificação funcional.
+                <svg className="absolute -bottom-1.5 left-0 w-full" viewBox="0 0 400 10" fill="none">
+                  <path
+                    d="M2 6C80 2 160 1.5 200 4C240 6.5 320 3 398 5.5"
+                    stroke="#D4A04A"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                  />
                 </svg>
-              </span>{" "}
-              em 10 minutos.
+              </span>
             </h1>
 
-            {/* Subheadline Otimizada: Autoridade + Foco Metabólico */}
-            <p className="text-lg lg:text-xl text-stone-600 leading-relaxed max-w-xl">
-              Recupere o prazer do café da manhã com um método desenvolvido por um Doutor em Genética. Receitas que controlam a glicemia e combatem a inflamação, fundamentadas na bioquímica dos alimentos.
+            {/* SUBHEADLINE */}
+            <p className="text-xl lg:text-2xl font-bold text-stone-700 mb-4 leading-snug">
+              O método que transforma qualquer cozinha em padaria artesanal.
             </p>
 
-            {/* Mini proof points Otimizados para Meta Ads (Evita claims médicos, foca em benefícios reais) */}
-            <div className="flex flex-wrap gap-4 text-sm font-medium text-stone-600">
-              <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-lg shadow-sm border border-stone-100">
-                <FaClock className="text-amber-700" />
-                <span>Preparo em 10 min</span>
-              </div>
-              <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-lg shadow-sm border border-stone-100">
-                <FaHeartbeat className="text-amber-700" />
-                <span>Seguro p/ Diabéticos (Baixo IG)</span>
-              </div>
-              <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-lg shadow-sm border border-stone-100">
-                <FaSeedling className="text-amber-700" />
-                <span>0% Glúten / 0% Lactose</span>
-              </div>
-            </div>
+            {/* SUPORTE */}
+            <p className="text-base text-stone-500 leading-relaxed mb-6 max-w-lg">
+              246 receitas criadas por um{" "}
+              <span className="font-semibold text-stone-600">
+                pesquisador em ciência dos alimentos
+              </span>{" "}
+              — cada uma ensinando o <em>porquê</em>, não só o como.
+              Do pão em 10 minutos ao sourdough de 48 horas.
+            </p>
 
-            {/* CTA */}
-            <div className="pt-2">
-              <button
-                onClick={onButtonClick}
-                className="group relative px-10 py-5 text-lg font-bold text-white rounded-xl shadow-xl transition-all duration-300 hover:shadow-2xl hover:scale-[1.03] active:scale-[0.98]"
-                style={{
-                  background: "linear-gradient(135deg, #6B3A2A, #8B5A3C)",
-                }}
-              >
-                <span className="flex items-center gap-3">
-                  Quero Fazer Pão Funcional Hoje
-                  <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
-                </span>
-              </button>
-              <p className="text-sm text-stone-500 mt-3 flex items-center gap-2">
-                <span className="inline-block w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                Acesso imediato · Garantia de 7 dias
-              </p>
-            </div>
-          </div>
-
-          {/* Right - Hero image */}
-          <div className="lg:w-1/2 mt-12 lg:mt-0 flex justify-center" data-aos="fade-left">
-            <div className="relative w-full flex justify-center">
-              <div
-                className="absolute -inset-4 rounded-3xl opacity-20 max-w-sm w-full"
-                style={{
-                  background: "linear-gradient(135deg, #D4A04A, transparent, #C4622D)",
-                }}
-              />
-              <div className="relative w-full max-w-sm aspect-9/16 bg-stone-200 rounded-2xl overflow-hidden shadow-2xl border-4 border-white/50">
+            {/* IMAGEM 16:9 — MOBILE ONLY */}
+            <div className="lg:hidden mb-6 w-full" data-aos="fade-up">
+              <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border-4 border-white/60">
                 <Image
-                  src="/panificacao/hero.jpeg"
-                  alt="Pães funcionais artesanais recém-saídos do forno"
+                  src="/panificacao/hero_mesa.png"
+                  alt="Mesa com pães funcionais artesanais variados"
                   fill
                   className="object-cover"
                   priority
                 />
-              </div>
-
-              {/* Floating badge */}
-              <div className="absolute -bottom-4 -left-4 sm:left-4 lg:-left-8 bg-white rounded-xl shadow-xl px-5 py-3 flex items-center gap-3 border border-amber-100 z-20">
-                <div className="w-10 h-10 rounded-full flex items-center justify-center text-xl" style={{ backgroundColor: "#F5E6CC" }}>
-                  🍞
-                </div>
-                <div>
-                  <p className="text-xs text-stone-500">Receitas a partir de</p>
-                  <p className="text-lg font-bold" style={{ color: "#6B3A2A" }}>10 minutos</p>
+                <div className="absolute inset-0 bg-linear-to-t from-stone-900/30 via-transparent to-transparent" />
+                {/* Badge avaliação mobile */}
+                <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm rounded-xl shadow-lg px-3 py-2 border border-amber-100">
+                  <p className="text-lg font-extrabold text-center" style={{ color: "#6B3A2A" }}>4.9★</p>
+                  <p className="text-[9px] text-stone-400 text-center">avaliação</p>
                 </div>
               </div>
             </div>
+
+            {/* BOTÃO PRINCIPAL */}
+            <button
+              onClick={onButtonClick}
+              className="group w-full lg:w-auto px-10 py-5 text-lg font-bold text-white rounded-xl shadow-xl hover:shadow-2xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 mb-5"
+              style={{ background: "linear-gradient(135deg, #6B3A2A, #8B5A3C)" }}
+            >
+              <span className="flex items-center justify-center gap-3">
+                Garantir Acesso por R$47
+                <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
+              </span>
+            </button>
+
+            {/* ÂNCORAS DE DECISÃO */}
+            <div className="grid grid-cols-2 gap-3 mb-6">
+              {anchors.map((a, i) => (
+                <div
+                  key={i}
+                  className="flex items-center gap-3 bg-white/70 backdrop-blur-sm rounded-xl px-4 py-3 border border-stone-100 shadow-sm"
+                >
+                  <span className="text-lg shrink-0">{a.icon}</span>
+                  <div>
+                    <p className="text-xs font-bold text-stone-700 leading-tight">{a.label}</p>
+                    <p className="text-[11px] text-stone-400 leading-tight mt-0.5">{a.sub}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* MOCKUP — MOBILE */}
+            <div className="lg:hidden">
+              <MockupStrip />
+            </div>
+
           </div>
+
+          {/* ═══════════════════════════════════════════
+              COLUNA DIREITA — imagem 16:9 + mockup
+              (desktop only)
+          ═══════════════════════════════════════════ */}
+          <div className="hidden lg:flex flex-col gap-5 sticky top-8" data-aos="fade-left">
+
+            {/* Imagem 16:9 */}
+            <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border-4 border-white/60">
+              <Image
+                src="/panificacao/hero_mesa.png"
+                alt="Mesa com pães funcionais artesanais variados"
+                fill
+                className="object-cover"
+                priority
+              />
+              <div className="absolute inset-0 bg-linear-to-t from-stone-900/30 via-transparent to-transparent" />
+              {/* Badge avaliação desktop */}
+              <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-xl shadow-lg px-4 py-2.5 border border-amber-100">
+                <p className="text-xl font-extrabold text-center" style={{ color: "#6B3A2A" }}>4.9★</p>
+                <p className="text-[10px] text-stone-400 text-center">avaliação média</p>
+              </div>
+            </div>
+
+            {/* Mockup desktop */}
+            <MockupStrip />
+
+          </div>
+
         </div>
       </div>
     </section>

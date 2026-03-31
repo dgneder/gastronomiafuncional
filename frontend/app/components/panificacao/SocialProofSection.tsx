@@ -4,10 +4,10 @@ import React from "react";
 import { FaUsers, FaStar, FaBookOpen, FaShieldAlt } from "react-icons/fa";
 
 const stats = [
-  { icon: FaStar, value: "4.9", label: "Avaliação média", suffix: "/5" },
-  { icon: FaBookOpen, value: "27", label: "Receitas testadas", suffix: "" },
-  { icon: FaUsers, value: "600+", label: "Páginas de conteúdo", suffix: "" },
-  { icon: FaShieldAlt, value: "117", label: "Receitas no ecossistema", suffix: "" },
+  { icon: FaStar,      value: "4.9",  label: "Avaliação média",          suffix: "/5" },
+  { icon: FaBookOpen,  value: "246",  label: "Receitas testadas",         suffix: "" },
+  { icon: FaUsers,     value: "230+", label: "Páginas de conteúdo",       suffix: "" },
+  { icon: FaShieldAlt, value: "11",   label: "Módulos na área de membros", suffix: "" },
 ];
 
 const testimonials = [
@@ -28,7 +28,7 @@ const testimonials = [
   {
     name: "Carla M.",
     location: "Curitiba, PR",
-    text: "Comprei achando que seria mais um ebook genérico. São 230 páginas com referências científicas, tabelas de farinhas e uma carta do autor que me emocionou. Vale 10x o preço.",
+    text: "Comprei achando que seria mais um ebook genérico. São 230 páginas com referências científicas, tabelas de farinhas e uma carta do autor que me emocionou. Vale 10× o preço.",
     recipe: "Capítulo 3 — Farinhas Funcionais",
     rating: 5,
   },
@@ -80,7 +80,6 @@ const SocialProofSection: React.FC = () => {
               data-aos="fade-up"
               data-aos-delay={i * 80}
             >
-              {/* Stars */}
               <div className="flex gap-1 mb-4">
                 {Array.from({ length: t.rating }).map((_, si) => (
                   <FaStar key={si} className="text-amber-400 text-sm" />

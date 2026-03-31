@@ -16,12 +16,12 @@ const parts: Part[] = [
     title: "Parte 1 — A Ciência do Pão",
     color: "#5B7B6D",
     chapters: [
-      { name: "Cap. 1 — O Pão e o Corpo", desc: "O que acontece quando comemos: índice glicêmico, inflamação, glúten e a saída funcional." },
-      { name: "Cap. 2 — A Anatomia do Pão", desc: "Os 4 pilares (estrutura, fermentação, hidratação, sabor) e os substitutos do glúten." },
+      { name: "Cap. 1 — O Pão e o Corpo",        desc: "O que acontece quando comemos: índice glicêmico, inflamação, glúten e a saída funcional." },
+      { name: "Cap. 2 — A Anatomia do Pão",       desc: "Os 4 pilares (estrutura, fermentação, hidratação, sabor) e os substitutos do glúten." },
       { name: "Cap. 3 — O Universo das Farinhas", desc: "14 farinhas funcionais com ficha técnica, personalidade, nota de 1 a 5 e combinações." },
-      { name: "Cap. 4 — Leveduras", desc: "Saccharomyces cerevisiae, tipos de fermento, equivalências e temperatura ideal." },
-      { name: "Cap. 5 — Levain", desc: "Como criar seu fermento natural do zero em 7 dias, protocolo completo." },
-      { name: "Cap. 6 — Fermentação Lenta", desc: "Por que tempo é ingrediente: redução de IG, pré-digestão de proteínas, sabor complexo." },
+      { name: "Cap. 4 — Leveduras",               desc: "Saccharomyces cerevisiae, tipos de fermento, equivalências e temperatura ideal." },
+      { name: "Cap. 5 — Levain",                  desc: "Como criar seu fermento natural do zero em 7 dias, protocolo completo." },
+      { name: "Cap. 6 — Fermentação Lenta",       desc: "Por que tempo é ingrediente: redução de IG, pré-digestão de proteínas, sabor complexo." },
     ],
   },
   {
@@ -29,21 +29,21 @@ const parts: Part[] = [
     title: "Parte 2 — Equipamentos e Cálculos",
     color: "#C4622D",
     chapters: [
-      { name: "Cap. 7 — Equipamentos", desc: "Kit básico, intermediário e avançado. O que realmente faz diferença." },
-      { name: "Cap. 8 — A Matemática do Pão", desc: "Porcentagem de padeiro, hidratação e como escalar receitas com precisão." },
+      { name: "Cap. 7 — Equipamentos",          desc: "Kit básico, intermediário e avançado. O que realmente faz diferença." },
+      { name: "Cap. 8 — A Matemática do Pão",   desc: "Porcentagem de padeiro, hidratação e como escalar receitas com precisão." },
       { name: "Cap. 9 — Substituição Inteligente", desc: "O princípio que te dá autonomia para criar receitas próprias com segurança." },
     ],
   },
   {
     icon: FaBreadSlice,
-    title: "Parte 3 — As 27 Receitas",
+    title: "Parte 3 — As 246 Receitas",
     color: "#6B3A2A",
     chapters: [
-      { name: "Módulo A — Pães Rápidos", desc: "5 receitas sem fermentação: frigideira, micro-ondas, pão de queijo, wrap, broa." },
-      { name: "Módulo B — Pães do Dia a Dia", desc: "6 receitas com fermento: forma, bisnaguinha, hambúrguer, focaccia, australiano, proteico." },
-      { name: "Módulo C — Pães Artesanais", desc: "5 receitas com levain: sourdough clássico, 48h, ciabatta, fermentação mista, azeitonas." },
-      { name: "Módulo D — Pães Especiais", desc: "6 receitas temáticas: cetogênico, anti-inflamatório, renal-friendly, prebiótico, glicêmico, energético." },
-      { name: "Módulo E — Além do Pão", desc: "5 receitas: pizza, crackers, grissini, panquecas, massa-base multiuso." },
+      { name: "Módulo A — Pães Rápidos",      desc: "42 receitas sem fermentação: frigideira, micro-ondas, pão de queijo, wrap, broa e mais." },
+      { name: "Módulo B — Pães do Dia a Dia", desc: "51 receitas com fermento: forma, bisnaguinha, hambúrguer, focaccia, australiano, proteico e mais." },
+      { name: "Módulo C — Pães Artesanais",   desc: "48 receitas com levain: sourdough clássico, 48h, ciabatta, fermentação mista, azeitonas e mais." },
+      { name: "Módulo D — Pães Especiais",    desc: "58 receitas temáticas: cetogênico, anti-inflamatório, renal-friendly, prebiótico, energético e mais." },
+      { name: "Módulo E — Além do Pão",       desc: "47 receitas: pizza, crackers, grissini, panquecas, wraps, massas-base e mais." },
     ],
   },
   {
@@ -52,8 +52,8 @@ const parts: Part[] = [
     color: "#8B6914",
     chapters: [
       { name: "Cap. 10 — Solução de Problemas", desc: "Guia de resgate: pão não cresceu? Ficou duro? Desmoronou? Diagnóstico e correção." },
-      { name: "Cap. 11 — Conservação", desc: "Por que o pão endurece (não é porque secou) e como armazenar corretamente." },
-      { name: "Cap. 12 — O Futuro", desc: "Genômica nutricional, personalização e tendências da panificação funcional." },
+      { name: "Cap. 11 — Conservação",           desc: "Por que o pão endurece (não é porque secou) e como armazenar corretamente." },
+      { name: "Cap. 12 — O Futuro",              desc: "Genômica nutricional, personalização e tendências da panificação funcional." },
     ],
   },
 ];
@@ -70,7 +70,7 @@ const CourseContent: React.FC = () => {
           </p>
           <h2 className="text-3xl lg:text-4xl font-extrabold text-stone-800">
             12 capítulos de ciência +{" "}
-            <span style={{ color: "#6B3A2A" }}>27 receitas testadas</span>
+            <span style={{ color: "#6B3A2A" }}>246 receitas testadas</span>
           </h2>
           <p className="mt-4 text-stone-500 text-lg max-w-2xl mx-auto">
             Mais de 230 páginas A5 com diagramação profissional, pílulas de conhecimento e referências bibliográficas.

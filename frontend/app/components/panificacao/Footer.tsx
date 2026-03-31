@@ -28,12 +28,12 @@ const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Contact */}
+          {/* Contato */}
           <div>
             <h4 className="text-white font-semibold text-sm mb-3 uppercase tracking-wider">Contato</h4>
             <div className="space-y-2 text-sm">
-              <a href="https://instagram.com/agricultando" className="flex items-center gap-2 hover:text-amber-400 transition-colors">
-                <FaInstagram /> @agricultando
+              <a href="https://instagram.com/annecarolinapessoa" className="flex items-center gap-2 hover:text-amber-400 transition-colors">
+                <FaInstagram /> @annecarolinapessoa
               </a>
               <a href="mailto:contato@gastronomiafuncional.com" className="flex items-center gap-2 hover:text-amber-400 transition-colors">
                 <FaEnvelope /> contato@gastronomiafuncional.com

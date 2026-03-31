@@ -24,8 +24,8 @@ const Guarantee: React.FC = () => {
         </h2>
 
         <p className="text-lg text-stone-600 leading-relaxed mb-6 max-w-2xl mx-auto">
-          Faça o download, leia, teste as receitas. Se em até 7 dias você sentir que o
-          Pão Sem Culpa não entregou o que prometeu, basta solicitar reembolso total
+          Faça o download, escolha uma receita, coloque a mão na massa. Se em até 7 dias
+          você não estiver satisfeito com o que aprendeu, basta solicitar reembolso total
           pela Hotmart. Um clique, sem perguntas, sem burocracia.
         </p>
 

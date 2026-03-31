@@ -13,16 +13,24 @@ const faqData = [
     answer: "Não. O livro começa literalmente do zero. Temos um módulo inteiro focado em pães de frigideira e micro-ondas que ficam prontos em 10 minutos. Você evolui do mais simples ao artesanal no seu próprio ritmo.",
   },
   {
+    question: "Quanto tempo leva para aprender?",
+    answer: "No primeiro dia você já consegue fazer o Pão de Frigideira — 10 minutos, sem fermentação, sem forno. Na primeira semana você domina os pães do dia a dia. Os pães artesanais com levain levam algumas semanas de prática, mas cada receita explica a ciência por trás — então o aprendizado é progressivo e você nunca trava.",
+  },
+  {
     question: "As receitas são realmente seguras para diabéticos?",
     answer: "Sim. As receitas com a tag 💙 DIA foram formuladas especificamente para controle glicêmico, utilizando farinhas de baixo índice glicêmico e técnicas de fermentação que quebram os açúcares. O próprio autor convive com diabetes e testou a eficácia do método.",
   },
   {
     question: "É totalmente sem glúten? Sou celíaco.",
-    answer: "Sim! Todas as 27 receitas foram formuladas absolutamente sem trigo ou derivados. O sistema de Tags do livro indica claramente (com a tag 💚 CEL) quais receitas são 100% seguras para celíacos, orientando sobre o risco de contaminação cruzada em produtos como a aveia.",
+    answer: "Sim! Todas as 246 receitas foram formuladas absolutamente sem trigo ou derivados. O sistema de Tags do livro indica claramente (com a tag 💚 CEL) quais receitas são 100% seguras para celíacos, orientando sobre o risco de contaminação cruzada em produtos como a aveia.",
+  },
+  {
+    question: "Funciona para quem tem intolerância à lactose?",
+    answer: "Sim. As receitas com a tag 🔵 SL foram desenvolvidas sem nenhum derivado de leite. A grande maioria dos pães funcionais do guia já é naturalmente sem lactose — e quando uma receita usa algum laticínio, sempre indicamos a substituição funcional equivalente.",
   },
   {
     question: "É só um ebook em PDF?",
-    answer: "É muito mais que isso. Além do livro completo (+230 páginas), você recebe acesso à Área de Membros VIP com o conteúdo dividido em 11 módulos navegáveis, a Tabela Mestra de Farinhas e a Planilha de Formulação automática.",
+    answer: "É muito mais que isso. Além do livro completo com 246 receitas e mais de 230 páginas, você recebe acesso à Área de Membros com o conteúdo dividido em 11 módulos navegáveis, o bônus de 50 Sanduíches Naturais Funcionais, a Tabela Mestra de Farinhas e a Planilha de Formulação automática.",
   },
   {
     question: "Qual a diferença para as receitas grátis da internet?",
