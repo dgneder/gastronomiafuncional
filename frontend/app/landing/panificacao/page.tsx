@@ -6,33 +6,48 @@ import FloatingNavBar from "@/app/components/panificacao/FloatingNavBar";
 import CountdownBanner from "@/app/components/panificacao/CountdownBanner";
 import { useTracking } from "@/app/hooks/useTracking";
 
-const Hero               = dynamic(() => import("@/app/components/panificacao/Hero"));
-const PainSection        = dynamic(() => import("@/app/components/panificacao/PainSection"));
-const AuthoritySection   = dynamic(() => import("@/app/components/panificacao/AuthoritySection"));
+const Hero                  = dynamic(() => import("@/app/components/panificacao/Hero"));
+const PleasureSection       = dynamic(() => import("@/app/components/panificacao/PleasureSection"));
+const PainSection           = dynamic(() => import("@/app/components/panificacao/PainSection"));
+const AuthoritySection      = dynamic(() => import("@/app/components/panificacao/AuthoritySection"));
 const TransformationSection = dynamic(() => import("@/app/components/panificacao/TransformationSection"));
-const RecipeShowcase     = dynamic(() => import("@/app/components/panificacao/RecipeShowcase"));
-const CTASection         = dynamic(() => import("@/app/components/panificacao/CTASection"));
-const CourseContent      = dynamic(() => import("@/app/components/panificacao/CourseContent"));
-const TagsSystem         = dynamic(() => import("@/app/components/panificacao/TagsSystem"));
-const BonusSection       = dynamic(() => import("@/app/components/panificacao/BonusSection"));
-const SocialProofSection = dynamic(() => import("@/app/components/panificacao/SocialProofSection"));
-const FAQ                = dynamic(() => import("@/app/components/panificacao/FAQ"));
-const Guarantee          = dynamic(() => import("@/app/components/panificacao/Guarantee"));
-const FinalCTA           = dynamic(() => import("@/app/components/panificacao/FinalCTA"));
-const Footer             = dynamic(() => import("@/app/components/panificacao/Footer"));
+const RecipeShowcase        = dynamic(() => import("@/app/components/panificacao/RecipeShowcase"));
+const CTASection            = dynamic(() => import("@/app/components/panificacao/CTASection"));
+const CourseContent         = dynamic(() => import("@/app/components/panificacao/CourseContent"));
+const TagsSystem            = dynamic(() => import("@/app/components/panificacao/TagsSystem"));
+const BonusSection          = dynamic(() => import("@/app/components/panificacao/BonusSection"));
+const SocialProofSection    = dynamic(() => import("@/app/components/panificacao/SocialProofSection"));
+const FAQ                   = dynamic(() => import("@/app/components/panificacao/FAQ"));
+const Guarantee             = dynamic(() => import("@/app/components/panificacao/Guarantee"));
+const FinalCTA              = dynamic(() => import("@/app/components/panificacao/FinalCTA"));
+const Footer                = dynamic(() => import("@/app/components/panificacao/Footer"));
 
 const VideoSection = dynamic(() => import("@/app/components/panificacao/VideoSection"), { ssr: false });
 const FoodGallery  = dynamic(() => import("@/app/components/panificacao/FoodGallery"),  { ssr: false });
 
+// URL do checkout Hotmart — sem página intermediária
+const HOTMART_CHECKOUT_URL = "https://pay.hotmart.com/D104951400K?checkoutMode=10";
+
 const PanificacaoPage: React.FC = () => {
-  const { trackViewContent } = useTracking();
+  const { trackViewContent, trackAddToCart } = useTracking();
 
   useEffect(() => {
     trackViewContent("Pão Sem Culpa — Panificação Funcional", "pao-sem-culpa", 47.0);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const handleButtonClick = () => { window.location.href = "/cadastro_panificacao"; };
-  const handleLoginClick  = () => { window.location.href = "https://seu-link-de-login.com"; };
+  const handleButtonClick = async () => {
+    // Dispara AddToCart no pixel ANTES de redirecionar
+    try {
+      await trackAddToCart("Pão Sem Culpa — Panificação Funcional", "pao-sem-culpa", 47.0);
+    } catch {
+      // Não bloqueia o redirect se o pixel falhar
+    }
+    window.location.href = HOTMART_CHECKOUT_URL;
+  };
+
+  const handleLoginClick = () => {
+    window.location.href = "https://seu-link-de-login.com";
+  };
 
   return (
     <div className="overflow-x-hidden">
@@ -40,6 +55,7 @@ const PanificacaoPage: React.FC = () => {
       <CountdownBanner />
       <LGPD />
 
+      {/* ── 1. HERO — desejo + permissão ─────────────────────────────── */}
       <Hero onButtonClick={handleButtonClick} />
 
       {/* VIDEO 1 — prova visual imediata logo após o Hero */}
@@ -56,7 +72,13 @@ const PanificacaoPage: React.FC = () => {
         onCtaClick={handleButtonClick}
       />
 
+      {/* ── 2. PRAZER SENSORIAL — cria desejo ANTES da dor ───────────── */}
+      <PleasureSection />
+
+      {/* ── 3. DOR ───────────────────────────────────────────────────── */}
       <PainSection />
+
+      {/* ── 4. AUTORIDADE + TRANSFORMAÇÃO ─────────────────────────────── */}
       <AuthoritySection />
       <TransformationSection onButtonClick={handleButtonClick} />
 
@@ -71,17 +93,18 @@ const PanificacaoPage: React.FC = () => {
         caption="Psyllium + farinha de arroz + hidratação correta = massa elástica sem glúten"
       />
 
+      {/* ── 5. RECEITAS + GALERIA ─────────────────────────────────────── */}
       <RecipeShowcase />
       <FoodGallery />
-      
 
-      {/* CTA principal — visitante já viu tudo antes de decidir */}
+      {/* ── 6. CTA PRINCIPAL ─────────────────────────────────────────── */}
       <CTASection onButtonClick={handleButtonClick} />
 
+      {/* ── 7. CONTEÚDO + TAGS ───────────────────────────────────────── */}
       <CourseContent />
       <TagsSystem />
 
-      {/* VIDEO 3 — eleva percepção de valor antes dos bônus, variante imersiva */}
+      {/* VIDEO 3 — sourdough cinematic, eleva percepção antes dos bônus */}
       <VideoSection
         variant="cinematic"
         tag="Módulo C — Pães Artesanais"
@@ -90,14 +113,15 @@ const PanificacaoPage: React.FC = () => {
         videoSrc="/panificacao/videos/video_10.webm"
         poster="/panificacao/gallery/sourdough.jpg"
         caption="Sourdough funcional — Receita 12 · Fermentação natural 48h · SG · LC"
-        ctaLabel="Quero os dois extremos por R$47"
+        ctaLabel="Quero dominar a panificação funcional por R$47"
         onCtaClick={handleButtonClick}
       />
 
+      {/* ── 8. BÔNUS + PROVA SOCIAL ──────────────────────────────────── */}
       <BonusSection />
       <SocialProofSection />
 
-      {/* VIDEO 4 — âncora emocional pré-fechamento, antes do FAQ */}
+      {/* VIDEO 4 — mesa posta, âncora emocional pré-fechamento */}
       <VideoSection
         variant="highlight"
         tag="O resultado final"
@@ -110,6 +134,7 @@ const PanificacaoPage: React.FC = () => {
         onCtaClick={handleButtonClick}
       />
 
+      {/* ── 9. FECHAMENTO ────────────────────────────────────────────── */}
       <FAQ />
       <Guarantee />
       <FinalCTA onButtonClick={handleButtonClick} />
