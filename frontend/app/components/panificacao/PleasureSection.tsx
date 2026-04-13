@@ -75,6 +75,7 @@ const PleasureSection: React.FC = () => {
                   alt={m.sensory}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-stone-900/70 via-stone-900/20 to-transparent" />
                 {/* Sensory headline sobre a imagem */}

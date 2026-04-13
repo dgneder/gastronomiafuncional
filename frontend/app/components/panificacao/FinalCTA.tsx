@@ -50,20 +50,20 @@ const FinalCTA: React.FC<FinalCTAProps> = ({ onButtonClick }) => {
 
           <div className="flex items-baseline justify-center gap-3 mb-2">
             <span className="text-xl text-amber-300/50 line-through">R$97</span>
-            <span className="text-6xl font-extrabold text-white">R$47</span>
+            <span className="text-6xl font-extrabold text-white">R$67</span>
             <span className="text-sm font-bold px-3 py-1 rounded-full bg-green-500/20 border border-green-400/30 text-green-300">
-              52% OFF
+              31% OFF
             </span>
           </div>
           <p className="text-amber-200/60 text-sm">
-            ou 3× de R$15,90 sem juros · Acesso vitalício · Garantia 7 dias
+            ou 6× de R$12,80 sem juros · Acesso vitalício · Garantia 7 dias
           </p>
         </div>
 
         {/* Stack resumido */}
         <div className="bg-white/10 rounded-2xl px-6 py-5 mb-8 max-w-md mx-auto text-left space-y-2">
           {[
-            { label: "246 receitas + 12 capítulos de ciência",     value: "R$97" },
+            { label: "Kit Pão Sem Culpa — 246 receitas + ciência",     value: "R$97" },
             { label: "Área de Membros — 11 módulos",               value: "R$47" },
             { label: "50 Sanduíches Naturais Funcionais 🎁",       value: "R$27" },
             { label: "5 Receitas: Café da Manhã Funcional 🎁",     value: "R$27" },
@@ -80,7 +80,7 @@ const FinalCTA: React.FC<FinalCTAProps> = ({ onButtonClick }) => {
           </div>
           <div className="flex justify-between items-center">
             <span className="text-amber-200 text-sm font-semibold">Lançamento:</span>
-            <span className="text-amber-300 font-extrabold text-2xl">R$47</span>
+            <span className="text-amber-300 font-extrabold text-2xl">R$67</span>
           </div>
         </div>
 
@@ -90,7 +90,7 @@ const FinalCTA: React.FC<FinalCTAProps> = ({ onButtonClick }) => {
           style={{ background: "linear-gradient(135deg, #D4A04A, #E8B84A)" }}
         >
           <span className="flex items-center gap-3">
-            Quero Meu Acesso por R$47
+            Quero Meu Acesso por R$67
             <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
           </span>
         </button>

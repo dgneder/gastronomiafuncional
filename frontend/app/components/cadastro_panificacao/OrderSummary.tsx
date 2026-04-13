@@ -3,7 +3,7 @@ import React from "react";
 import { FaCheckCircle, FaGift } from "react-icons/fa";
 
 const items = [
-  { name: "Pão Sem Culpa — 246 receitas + 12 caps de ciência", value: "R$97" },
+  { name: "Kit Pão Sem Culpa — 246 receitas + 12 caps de ciência", value: "R$97" },
   { name: "Área de Membros — 11 módulos navegáveis",            value: "R$47" },
   { name: "50 Sanduíches Naturais Funcionais",                  value: "R$27", bonus: true },
   { name: "5 Receitas Bônus — Café da Manhã Funcional",         value: "R$27", bonus: true },
@@ -45,11 +45,11 @@ const OrderSummary: React.FC = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="text-white font-bold text-base">🎉 Lançamento</span>
-            <span className="px-2 py-0.5 bg-amber-900/50 border border-amber-700/50 rounded text-amber-400 text-xs font-bold">52% OFF</span>
+            <span className="px-2 py-0.5 bg-amber-900/50 border border-amber-700/50 rounded text-amber-400 text-xs font-bold">31% OFF</span>
           </div>
-          <span className="text-amber-400 font-extrabold text-2xl">R$47</span>
+          <span className="text-amber-400 font-extrabold text-2xl">R$67</span>
         </div>
-        <p className="text-stone-500 text-xs mt-2 text-right">ou 2x de R$23,50 sem juros</p>
+        <p className="text-stone-500 text-xs mt-2 text-right">ou 6x de R$12,80 sem juros</p>
       </div>
     </div>
   );

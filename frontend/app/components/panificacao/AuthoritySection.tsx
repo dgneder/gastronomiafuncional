@@ -33,6 +33,9 @@ const AuthoritySection: React.FC = () => {
                 alt="Prof. Dr. Diogo Gonçalves Neder"
                 fill
                 className="object-cover"
+                sizes="(max-width: 1024px) 288px, 320px"
+                placeholder="blur"
+                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg=="
               />
             </div>
             <div className="absolute -bottom-5 -right-5 bg-white rounded-xl shadow-lg px-5 py-3 border border-amber-100">

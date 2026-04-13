@@ -57,7 +57,7 @@ const extras = [
 ];
 
 const valueStack = [
-  { label: "Pão Sem Culpa — 246 receitas + ciência",     value: "R$97" },
+  { label: "Kit Pão Sem Culpa — 246 receitas + ciência",     value: "R$97" },
   { label: "Área de Membros — 11 módulos navegáveis",    value: "R$47" },
   { label: "50 Sanduíches Naturais Funcionais 🎁",       value: "R$27" },
   { label: "5 Receitas: Café da Manhã Funcional 🎁",     value: "R$27" },
@@ -199,8 +199,8 @@ const BonusSection: React.FC = () => {
               <p className="text-xs font-bold text-red-600 uppercase tracking-wider mb-1">
                 Preço especial de lançamento
               </p>
-              <p className="text-5xl font-extrabold" style={{ color: "#6B3A2A" }}>R$47</p>
-              <p className="text-xs text-stone-400 mt-0.5">ou 3× de R$15,90 s/ juros</p>
+              <p className="text-5xl font-extrabold" style={{ color: "#6B3A2A" }}>R$67</p>
+              <p className="text-xs text-stone-400 mt-0.5">ou 6× de R$12,80 s/ juros</p>
             </div>
           </div>
         </div>

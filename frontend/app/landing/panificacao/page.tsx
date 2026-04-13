@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import dynamic from "next/dynamic";
 import LGPD from "@/app/components/panificacao/LGPD";
 import FloatingNavBar from "@/app/components/panificacao/FloatingNavBar";
-import CountdownBanner from "@/app/components/panificacao/CountdownBanner";
 import { useTracking } from "@/app/hooks/useTracking";
 
 const Hero                  = dynamic(() => import("@/app/components/panificacao/Hero"));
@@ -25,24 +24,23 @@ const Footer                = dynamic(() => import("@/app/components/panificacao
 const VideoSection = dynamic(() => import("@/app/components/panificacao/VideoSection"), { ssr: false });
 const FoodGallery  = dynamic(() => import("@/app/components/panificacao/FoodGallery"),  { ssr: false });
 
-// URL do checkout Hotmart — sem página intermediária
-const HOTMART_CHECKOUT_URL = "https://pay.hotmart.com/D104951400K?checkoutMode=10";
+// CTA agora leva para a página intermediária (captura lead → Sellflux → Hotmart R$67)
+const CHECKOUT_URL = "/cadastro_panificacao";
 
 const PanificacaoPage: React.FC = () => {
   const { trackViewContent, trackAddToCart } = useTracking();
 
   useEffect(() => {
-    trackViewContent("Pão Sem Culpa — Panificação Funcional", "pao-sem-culpa", 47.0);
+    trackViewContent("Kit Pão Sem Culpa — Panificação Funcional", "kit-pao-sem-culpa", 67.0);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleButtonClick = async () => {
-    // Dispara AddToCart no pixel ANTES de redirecionar
     try {
-      await trackAddToCart("Pão Sem Culpa — Panificação Funcional", "pao-sem-culpa", 47.0);
+      await trackAddToCart("Kit Pão Sem Culpa — Panificação Funcional", "kit-pao-sem-culpa", 67.0);
     } catch {
       // Não bloqueia o redirect se o pixel falhar
     }
-    window.location.href = HOTMART_CHECKOUT_URL;
+    window.location.href = CHECKOUT_URL;
   };
 
   const handleLoginClick = () => {
@@ -52,13 +50,10 @@ const PanificacaoPage: React.FC = () => {
   return (
     <div className="overflow-x-hidden">
       <FloatingNavBar onLoginClick={handleLoginClick} handleButtonClick={handleButtonClick} />
-      <CountdownBanner />
       <LGPD />
 
-      {/* ── 1. HERO — desejo + permissão ─────────────────────────────── */}
       <Hero onButtonClick={handleButtonClick} />
 
-      {/* VIDEO 1 — prova visual imediata logo após o Hero */}
       <VideoSection
         variant="split-right"
         tag="Receita 01 do guia"
@@ -72,17 +67,11 @@ const PanificacaoPage: React.FC = () => {
         onCtaClick={handleButtonClick}
       />
 
-      {/* ── 2. PRAZER SENSORIAL — cria desejo ANTES da dor ───────────── */}
       <PleasureSection />
-
-      {/* ── 3. DOR ───────────────────────────────────────────────────── */}
       <PainSection />
-
-      {/* ── 4. AUTORIDADE + TRANSFORMAÇÃO ─────────────────────────────── */}
       <AuthoritySection />
       <TransformationSection onButtonClick={handleButtonClick} />
 
-      {/* VIDEO 2 — quebra objeção de complexidade após o before/after */}
       <VideoSection
         variant="split-left"
         tag="Bioquímica dos Alimentos Aplicada"
@@ -93,18 +82,12 @@ const PanificacaoPage: React.FC = () => {
         caption="Psyllium + farinha de arroz + hidratação correta = massa elástica sem glúten"
       />
 
-      {/* ── 5. RECEITAS + GALERIA ─────────────────────────────────────── */}
       <RecipeShowcase />
       <FoodGallery />
-
-      {/* ── 6. CTA PRINCIPAL ─────────────────────────────────────────── */}
       <CTASection onButtonClick={handleButtonClick} />
-
-      {/* ── 7. CONTEÚDO + TAGS ───────────────────────────────────────── */}
       <CourseContent />
       <TagsSystem />
 
-      {/* VIDEO 3 — sourdough cinematic, eleva percepção antes dos bônus */}
       <VideoSection
         variant="cinematic"
         tag="Módulo C — Pães Artesanais"
@@ -113,15 +96,13 @@ const PanificacaoPage: React.FC = () => {
         videoSrc="/panificacao/videos/video_10.webm"
         poster="/panificacao/gallery/sourdough.jpg"
         caption="Sourdough funcional — Receita 12 · Fermentação natural 48h · SG · LC"
-        ctaLabel="Quero dominar a panificação funcional por R$47"
+        ctaLabel="Quero dominar a panificação funcional por R$67"
         onCtaClick={handleButtonClick}
       />
 
-      {/* ── 8. BÔNUS + PROVA SOCIAL ──────────────────────────────────── */}
       <BonusSection />
       <SocialProofSection />
 
-      {/* VIDEO 4 — mesa posta, âncora emocional pré-fechamento */}
       <VideoSection
         variant="highlight"
         tag="O resultado final"
@@ -130,11 +111,10 @@ const PanificacaoPage: React.FC = () => {
         videoSrc="/panificacao/videos/video_11.webm"
         poster="/panificacao/gallery/sanduiche.jpg"
         caption="Mesa funcional — pão, pasta, geleia, bebida. Tudo no ecossistema."
-        ctaLabel="Quero essa mesa por R$47"
+        ctaLabel="Quero essa mesa por R$67"
         onCtaClick={handleButtonClick}
       />
 
-      {/* ── 9. FECHAMENTO ────────────────────────────────────────────── */}
       <FAQ />
       <Guarantee />
       <FinalCTA onButtonClick={handleButtonClick} />

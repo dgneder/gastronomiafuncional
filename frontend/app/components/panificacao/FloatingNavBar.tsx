@@ -25,10 +25,10 @@ const FloatingNavBar: React.FC<FloatingNavBarProps> = ({ onLoginClick, handleBut
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <FaBreadSlice style={{ color: "#6B3A2A" }} />
-            <span className="font-bold text-stone-800 text-sm hidden sm:inline">Pão Sem Culpa</span>
+            <span className="font-bold text-stone-800 text-sm hidden sm:inline">Kit Pão Sem Culpa</span>
             <span className="hidden md:inline-flex items-center gap-1.5 ml-3 bg-amber-50 border border-amber-200 rounded-full px-3 py-0.5">
               <span className="text-stone-400 line-through text-xs">R$97</span>
-              <span className="text-sm font-extrabold" style={{ color: "#6B3A2A" }}>R$47</span>
+              <span className="text-sm font-extrabold" style={{ color: "#6B3A2A" }}>R$67</span>
               <span className="text-[10px] font-bold text-green-700 bg-green-50 border border-green-200 px-1.5 py-0.5 rounded-full ml-1">LANÇAMENTO</span>
             </span>
           </div>
@@ -42,7 +42,7 @@ const FloatingNavBar: React.FC<FloatingNavBarProps> = ({ onLoginClick, handleBut
               className="flex items-center gap-2 px-5 py-2.5 text-sm font-bold text-white rounded-lg transition-all hover:scale-[1.03]"
               style={{ background: "linear-gradient(135deg, #6B3A2A, #8B5A3C)" }}
             >
-              <span>Garantir por R$47</span>
+              <span>Garantir por R$67</span>
               <FaArrowRight className="text-xs" />
             </button>
           </div>

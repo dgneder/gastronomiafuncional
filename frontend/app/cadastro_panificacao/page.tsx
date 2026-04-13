@@ -18,7 +18,7 @@ export default function CadastroPanificacao() {
   const { trackAddToCart } = useTracking();
 
   useEffect(() => {
-    trackAddToCart("Pão Sem Culpa — Panificação Funcional", "pao-sem-culpa", 47.0);
+    trackAddToCart("Kit Pão Sem Culpa — Panificação Funcional", "kit-pao-sem-culpa", 67.0);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
@@ -35,8 +35,8 @@ export default function CadastroPanificacao() {
               </span>
             </div>
             <h1 className="text-xl lg:text-3xl font-extrabold text-white">
-              Falta pouco para seus{" "}
-              <span className="text-amber-400">pães funcionais!</span>
+              Falta pouco para o seu{" "}
+              <span className="text-amber-400">Kit Pão Sem Culpa!</span>
             </h1>
           </div>
 
@@ -75,17 +75,17 @@ export default function CadastroPanificacao() {
           <p className="text-amber-300/80 text-sm font-semibold uppercase tracking-wider">🎉 Preço especial de lançamento</p>
           <div className="flex items-baseline justify-center gap-2">
             <span className="text-stone-500 line-through text-base">R$97</span>
-            <span className="text-3xl font-extrabold text-amber-400">R$47</span>
-            <span className="text-xs font-bold text-amber-400 bg-amber-900/30 border border-amber-700/30 px-2 py-0.5 rounded-full">52% OFF</span>
+            <span className="text-3xl font-extrabold text-amber-400">R$67</span>
+            <span className="text-xs font-bold text-amber-400 bg-amber-900/30 border border-amber-700/30 px-2 py-0.5 rounded-full">31% OFF</span>
           </div>
-          <p className="text-stone-500 text-xs">ou 2x de R$23,50 sem juros</p>
+          <p className="text-stone-500 text-xs">ou 6x de R$12,80 sem juros</p>
           <a
             href="#"
             onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
             className="block w-full py-4 text-base font-bold text-white rounded-xl shadow-lg transition-all hover:scale-[1.02]"
             style={{ background: "linear-gradient(135deg, #6B3A2A, #8B5A3C)" }}
           >
-            ↑ Voltar e garantir por R$47
+            ↑ Voltar e garantir por R$67
           </a>
           <p className="text-stone-600 text-[10px]">Acesso imediato · Garantia de 7 dias · Pagamento seguro via Hotmart</p>
         </div>

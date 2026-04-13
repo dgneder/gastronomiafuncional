@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           {/* Brand */}
           <div>
-            <h3 className="text-white font-bold text-lg mb-3">Pão Sem Culpa</h3>
+            <h3 className="text-white font-bold text-lg mb-3">Kit Pão Sem Culpa</h3>
             <p className="text-sm leading-relaxed">
               Coleção Gastronomia Funcional<br />
               Prof. Dr. Diogo Gonçalves Neder

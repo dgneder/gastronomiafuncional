@@ -111,6 +111,7 @@ export default function FoodGallery({
                       fill
                       className="object-cover"
                       loading="lazy"
+                      sizes="(max-width: 640px) 78vw, (max-width: 1024px) 44vw, 30vw"
                     />
                     <div className="absolute inset-0 bg-linear-to-t from-stone-900/80 via-transparent to-transparent" />
                     {(item.label || item.meta) && (
