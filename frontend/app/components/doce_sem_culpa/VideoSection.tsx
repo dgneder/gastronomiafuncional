@@ -18,13 +18,14 @@ export interface VideoSectionProps {
   stat?: { value: string; label: string };
 }
 
+// ── VideoPlayer com IntersectionObserver para autoplay on-view ────────────
 function VideoPlayer({ src, poster, className = "" }: { src: string; poster?: string; className?: string }) {
-  const wrapRef = useRef<HTMLDivElement | null>(null);
+  const wrapRef  = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
-    const wrap = wrapRef.current;
+    const wrap  = wrapRef.current;
     const video = videoRef.current;
     if (!wrap || !video) return;
     const obs = new IntersectionObserver(
@@ -48,12 +49,12 @@ function VideoPlayer({ src, poster, className = "" }: { src: string; poster?: st
         className="w-full h-full object-cover"
         onPlay={() => setPlaying(true)}
       >
-        <source src={src} type="video/webm" />
-        <source src={mp4Src} type="video/mp4" />
+        <source src={src}    type="video/webm" />
+        <source src={mp4Src} type="video/mp4"  />
       </video>
       {!playing && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <div className="w-14 h-14 rounded-full flex items-center justify-center border-2 border-white/60" style={{ backgroundColor: "rgba(139,34,82,0.55)" }}>
+          <div className="w-14 h-14 rounded-full flex items-center justify-center border-2 border-white/60" style={{ backgroundColor: "rgba(0,0,0,0.40)" }}>
             <FaPlay className="text-white text-lg ml-1" />
           </div>
         </div>
@@ -63,65 +64,67 @@ function VideoPlayer({ src, poster, className = "" }: { src: string; poster?: st
 }
 
 function SplitLayout({ p, videoLeft }: { p: VideoSectionProps; videoLeft: boolean }) {
-  const text = (
-    <div className="flex flex-col justify-center space-y-5">
-      {p.tag && (
-        <span className="text-xs font-bold uppercase tracking-widest" style={{ color: "#8B2252" }}>{p.tag}</span>
-      )}
-      <h2 className="text-2xl lg:text-3xl font-extrabold text-gray-900 leading-tight">{p.headline}</h2>
-      {p.subtext && <p className="text-gray-500 leading-relaxed">{p.subtext}</p>}
-      {p.caption && (
-        <p className="text-xs font-mono px-3 py-2 rounded-lg" style={{ backgroundColor: "#8B225210", color: "#8B2252" }}>{p.caption}</p>
-      )}
-      {p.stat && (
-        <div className="inline-flex items-baseline gap-2">
-          <span className="text-4xl font-extrabold" style={{ color: "#8B2252" }}>{p.stat.value}</span>
-          <span className="text-gray-500 text-sm">{p.stat.label}</span>
-        </div>
-      )}
-      {p.ctaLabel && p.onCtaClick && (
-        <button onClick={p.onCtaClick}
-          className="group self-start flex items-center gap-2 px-6 py-3 text-sm font-bold text-white rounded-xl transition-all hover:scale-[1.03]"
-          style={{ background: "linear-gradient(135deg, #8B2252, #6B1A40)" }}>
-          {p.ctaLabel}
-          <FaArrowRight className="text-xs group-hover:translate-x-1 transition-transform" />
-        </button>
-      )}
-    </div>
-  );
-
-  const video = <VideoPlayer src={p.videoSrc} poster={p.poster} className="w-full aspect-[4/3]" />;
-
   return (
-    <section className="py-16 px-6 lg:px-12" style={{ background: videoLeft ? "#ffffff" : "linear-gradient(135deg, #FFF0F5, #FCEEF4)" }} data-aos="fade-up">
-      <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-        {videoLeft ? <>{video}{text}</> : <>{text}{video}</>}
+    <section
+      className="py-16 px-6 lg:px-12"
+      style={{ background: videoLeft ? "#ffffff" : "linear-gradient(135deg, #FBF5E8, #F5E6D0)" }}
+      data-aos="fade-up"
+    >
+      <div className="max-w-6xl mx-auto">
+        <div className={`flex flex-col ${videoLeft ? "lg:flex-row" : "lg:flex-row-reverse"} items-center gap-12`}>
+          <div className="w-full lg:w-1/2" data-aos={videoLeft ? "fade-right" : "fade-left"}>
+            <VideoPlayer src={p.videoSrc} poster={p.poster} className="w-full aspect-video lg:aspect-4/3" />
+            {p.caption && <p className="text-stone-400 text-xs text-center mt-3 italic">{p.caption}</p>}
+          </div>
+          <div className="w-full lg:w-1/2 space-y-6" data-aos={videoLeft ? "fade-left" : "fade-right"}>
+            {p.tag && <p className="text-xs uppercase tracking-widest font-bold" style={{ color: "#8B2252" }}>{p.tag}</p>}
+            <h2 className="text-3xl lg:text-4xl font-extrabold text-stone-800 leading-tight">{p.headline}</h2>
+            {p.subtext && <p className="text-lg text-stone-500 leading-relaxed">{p.subtext}</p>}
+            {p.stat && (
+              <div className="inline-flex items-baseline gap-2 px-5 py-3 rounded-xl border" style={{ backgroundColor: "#F5E6D0", borderColor: "#D4A04A40" }}>
+                <span className="text-3xl font-extrabold" style={{ color: "#8B2252" }}>{p.stat.value}</span>
+                <span className="text-stone-500 text-sm">{p.stat.label}</span>
+              </div>
+            )}
+            {p.ctaLabel && p.onCtaClick && (
+              <button
+                onClick={p.onCtaClick}
+                className="group flex items-center gap-3 px-8 py-4 text-base font-bold text-white rounded-xl shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
+                style={{ background: "linear-gradient(135deg, #8B2252, #6B1A3F)" }}
+              >
+                {p.ctaLabel}
+                <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
+              </button>
+            )}
+          </div>
+        </div>
       </div>
     </section>
   );
 }
 
 function CinematicLayout({ p }: { p: VideoSectionProps }) {
+  const mp4Src = p.videoSrc.replace(/\.webm$/, ".mp4");
   return (
-    <section className="py-16 px-6 lg:px-12 bg-gray-950" data-aos="fade-up">
-      <div className="max-w-5xl mx-auto">
-        {p.tag && <p className="text-xs font-bold uppercase tracking-widest text-center mb-4" style={{ color: "#D4A04A" }}>{p.tag}</p>}
-        <h2 className="text-2xl lg:text-4xl font-extrabold text-white text-center leading-tight mb-8">{p.headline}</h2>
-        <VideoPlayer src={p.videoSrc} poster={p.poster} className="w-full aspect-video" />
-        {p.caption && (
-          <p className="text-center text-xs mt-4 font-mono" style={{ color: "#D4A04A80" }}>{p.caption}</p>
-        )}
-        {p.subtext && <p className="text-center text-gray-400 mt-4 max-w-2xl mx-auto">{p.subtext}</p>}
-        {p.ctaLabel && p.onCtaClick && (
-          <div className="text-center mt-8">
-            <button onClick={p.onCtaClick}
-              className="group inline-flex items-center gap-2 px-8 py-4 font-bold rounded-xl text-gray-900 transition-all hover:scale-[1.03]"
-              style={{ background: "linear-gradient(135deg, #D4A04A, #E8C06A)" }}>
+    <section className="relative py-0 overflow-hidden" data-aos="fade-up">
+      <div className="relative w-full" style={{ minHeight: "420px" }}>
+        <video autoPlay muted loop playsInline poster={p.poster} className="absolute inset-0 w-full h-full object-cover" style={{ minHeight: "420px" }}>
+          <source src={p.videoSrc} type="video/webm" />
+          <source src={mp4Src}     type="video/mp4"  />
+        </video>
+        <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(45,18,32,0.55) 0%, rgba(45,18,32,0.72) 60%, rgba(26,10,20,0.92) 100%)" }} />
+        <div className="relative z-10 flex flex-col items-center justify-center text-center px-6 py-20 lg:py-28 min-h-[420px]">
+          {p.tag && <p className="text-amber-400/80 text-xs uppercase tracking-widest font-bold mb-4">{p.tag}</p>}
+          <h2 className="text-3xl lg:text-5xl font-extrabold text-white leading-tight max-w-3xl mb-6">{p.headline}</h2>
+          {p.subtext && <p className="text-amber-100/70 text-lg max-w-xl leading-relaxed mb-8">{p.subtext}</p>}
+          {p.ctaLabel && p.onCtaClick && (
+            <button onClick={p.onCtaClick} className="group flex items-center gap-3 px-10 py-4 text-base font-bold rounded-xl shadow-2xl hover:scale-[1.04] transition-all text-stone-900" style={{ background: "linear-gradient(135deg, #D4A04A, #E8B84A)" }}>
               {p.ctaLabel}
-              <FaArrowRight className="text-xs group-hover:translate-x-1 transition-transform" />
+              <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
             </button>
-          </div>
-        )}
+          )}
+          {p.caption && <p className="text-white/30 text-xs mt-6 italic">{p.caption}</p>}
+        </div>
       </div>
     </section>
   );
@@ -129,23 +132,19 @@ function CinematicLayout({ p }: { p: VideoSectionProps }) {
 
 function HighlightLayout({ p }: { p: VideoSectionProps }) {
   return (
-    <section className="py-16 px-6 lg:px-12" style={{ background: "linear-gradient(160deg, #6B1A40, #8B2252)" }} data-aos="fade-up">
-      <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-        <div className="text-white space-y-5">
-          {p.tag && <span className="text-xs font-bold uppercase tracking-widest" style={{ color: "#D4A04A" }}>{p.tag}</span>}
-          <h2 className="text-2xl lg:text-3xl font-extrabold leading-tight">{p.headline}</h2>
-          {p.subtext && <p className="text-rose-200/70 leading-relaxed">{p.subtext}</p>}
-          {p.caption && <p className="text-xs font-mono text-rose-300/60">{p.caption}</p>}
-          {p.ctaLabel && p.onCtaClick && (
-            <button onClick={p.onCtaClick}
-              className="group self-start flex items-center gap-2 px-6 py-3 text-sm font-bold rounded-xl text-gray-900 transition-all hover:scale-[1.03]"
-              style={{ background: "linear-gradient(135deg, #D4A04A, #E8C06A)" }}>
-              {p.ctaLabel}
-              <FaArrowRight className="text-xs group-hover:translate-x-1 transition-transform" />
-            </button>
-          )}
-        </div>
-        <VideoPlayer src={p.videoSrc} poster={p.poster} className="w-full aspect-[4/3]" />
+    <section className="py-16 px-6 lg:px-12" style={{ background: "linear-gradient(180deg, #F5E6D0, #FBF5E8)" }} data-aos="fade-up">
+      <div className="max-w-4xl mx-auto space-y-8 text-center">
+        {p.tag && <p className="text-xs uppercase tracking-widest font-bold" style={{ color: "#8B2252" }}>{p.tag}</p>}
+        <h2 className="text-3xl lg:text-4xl font-extrabold text-stone-800 leading-tight">{p.headline}</h2>
+        {p.subtext && <p className="text-lg text-stone-500 leading-relaxed max-w-2xl mx-auto">{p.subtext}</p>}
+        <VideoPlayer src={p.videoSrc} poster={p.poster} className="w-full aspect-video" />
+        {p.caption && <p className="text-stone-400 text-xs italic">{p.caption}</p>}
+        {p.ctaLabel && p.onCtaClick && (
+          <button onClick={p.onCtaClick} className="group inline-flex items-center gap-3 px-10 py-4 text-base font-bold text-white rounded-xl shadow-xl hover:shadow-2xl hover:scale-[1.03] transition-all" style={{ background: "linear-gradient(135deg, #8B2252, #6B1A3F)" }}>
+            {p.ctaLabel}
+            <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
+          </button>
+        )}
       </div>
     </section>
   );
@@ -153,10 +152,10 @@ function HighlightLayout({ p }: { p: VideoSectionProps }) {
 
 const VideoSection: React.FC<VideoSectionProps> = (props) => {
   const variant = props.variant ?? "split-right";
-  if (variant === "split-right") return <SplitLayout p={props} videoLeft={false} />;
-  if (variant === "split-left")  return <SplitLayout p={props} videoLeft={true} />;
-  if (variant === "cinematic")   return <CinematicLayout p={props} />;
-  return <HighlightLayout p={props} />;
+  if (variant === "cinematic") return <CinematicLayout p={props} />;
+  if (variant === "highlight")  return <HighlightLayout p={props} />;
+  if (variant === "split-left") return <SplitLayout p={props} videoLeft={true} />;
+  return <SplitLayout p={props} videoLeft={false} />;
 };
 
 export default VideoSection;

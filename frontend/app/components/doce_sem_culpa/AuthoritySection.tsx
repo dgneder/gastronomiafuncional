@@ -1,57 +1,111 @@
 "use client";
+
 import Image from "next/image";
 import React from "react";
-import { FaGraduationCap, FaMicroscope, FaHeartbeat, FaFlask } from "react-icons/fa";
+import { FaGraduationCap, FaMicroscope, FaHeartbeat, FaFlask, FaUtensils } from "react-icons/fa";
 
 const credentials = [
-  { icon: FaGraduationCap, text: "Doutor em Genética e Melhoramento de Plantas — UEPB" },
-  { icon: FaFlask,         text: "Pesquisador em leveduras, fermentação e ciência de alimentos" },
-  { icon: FaMicroscope,    text: "Especialista em bioquímica aplicada à gastronomia funcional" },
-  { icon: FaHeartbeat,     text: "Convive com doença renal crônica, diabetes e hipertensão em família" },
+  { icon: FaGraduationCap, text: "Doutor em Genética e Melhoramento de Plantas" },
+  { icon: FaFlask,         text: "15+ anos de pesquisa em plantas bioativas" },
+  { icon: FaMicroscope,    text: "Professor universitário (UEPB) e autor indexado" },
+  { icon: FaHeartbeat,     text: "Convive com diabetes, doença renal e hipertensão" },
 ];
 
-const AuthoritySection: React.FC = () => (
-  <section className="py-20 px-6 lg:px-12" style={{ background: "linear-gradient(180deg, #FFF0F5 0%, #FCEEF4 100%)" }} data-aos="fade-up">
-    <div className="max-w-6xl mx-auto lg:flex lg:items-center lg:gap-16">
-      <div className="lg:w-5/12 mb-10 lg:mb-0 flex justify-center" data-aos="fade-right">
-        <div className="relative">
-          <div className="absolute -inset-3 rounded-3xl" style={{ background: "linear-gradient(135deg, #8B225215, #D4A04A15)" }} />
-          <div className="relative w-72 h-80 lg:w-80 lg:h-96 rounded-3xl overflow-hidden shadow-2xl">
-            <Image src="/panificacao/professor.png" alt="Prof. Dr. Diogo Gonçalves Neder" fill className="object-cover" />
-          </div>
-          <div className="absolute -bottom-5 -right-5 bg-white rounded-2xl shadow-xl px-5 py-3 border border-rose-100">
-            <p className="text-xs text-gray-400 uppercase tracking-wide">Co-autores</p>
-            <p className="font-bold text-gray-800 text-sm">Prof. Dr. Diogo Neder</p>
-            <p className="text-xs text-gray-500">& Anne Carolina Neder</p>
-          </div>
-        </div>
-      </div>
-      <div className="lg:w-7/12 space-y-6" data-aos="fade-left">
-        <p className="text-sm uppercase tracking-widest font-semibold" style={{ color: "#8B2252" }}>Quem criou esta coleção</p>
-        <h2 className="text-3xl lg:text-4xl font-extrabold text-gray-900 leading-tight">
-          Um cientista que pesquisa leveduras —{" "}
-          <span style={{ color: "#8B2252" }}>e que precisa cuidar da própria saúde</span>
-        </h2>
-        <p className="text-gray-600 text-lg leading-relaxed">
-          Passei anos estudando ao microscópio as leveduras que fazem a fermentação acontecer. Esse caminho me levou
-          à ciência e tecnologia de alimentos — e foi convivendo com doença renal, diabetes e hipertensão em família
-          que entendi: gastronomia funcional não é tendência. É necessidade.
-        </p>
-        <p className="text-gray-500 leading-relaxed">
-          Esta coleção nasceu com minha esposa Anne Carolina, que traz o olhar do cuidado hospitalar e da alimentação
-          terapêutica. Juntos desenvolvemos sobremesas que são saborosas, bonitas e respaldadas pela ciência.
-        </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-          {credentials.map((cred, i) => (
-            <div key={i} className="flex items-center gap-3 bg-white/80 rounded-xl px-4 py-3 shadow-sm border border-rose-50">
-              <cred.icon className="text-lg shrink-0" style={{ color: "#8B2252" }} />
-              <span className="text-sm text-gray-700 font-medium">{cred.text}</span>
+const AuthoritySection: React.FC = () => {
+  return (
+    <section
+      className="py-20 px-6 lg:px-12"
+      style={{ background: "linear-gradient(180deg, #FBF5E8 0%, #F5E6D0 100%)" }}
+      data-aos="fade-up"
+    >
+      <div className="max-w-6xl mx-auto lg:flex lg:items-start lg:gap-16">
+
+        {/* Foto do autor */}
+        <div className="lg:w-5/12 mb-10 lg:mb-0 flex justify-center" data-aos="fade-right">
+          <div className="relative">
+            <div
+              className="absolute -inset-3 rounded-2xl"
+              style={{ background: "linear-gradient(135deg, #D4A04A20, #8B225220)" }}
+            />
+            <div className="relative w-72 h-80 lg:w-80 lg:h-96 rounded-2xl overflow-hidden shadow-xl">
+              <Image
+                src="/doce-sem-culpa/professor.png"
+                alt="Prof. Dr. Diogo Gonçalves Neder"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 288px, 320px"
+                placeholder="blur"
+                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg=="
+              />
             </div>
-          ))}
+            <div
+              className="absolute -bottom-5 -right-5 bg-white rounded-xl shadow-lg px-5 py-3 border"
+              style={{ borderColor: "#D4A04A40" }}
+            >
+              <p className="text-xs text-stone-400 uppercase tracking-wide">Co-autores</p>
+              <p className="font-bold text-stone-800 text-sm">Diogo G. Neder</p>
+            </div>
+          </div>
         </div>
+
+        {/* Copy */}
+        <div className="lg:w-7/12 space-y-6" data-aos="fade-left">
+          <p className="text-sm uppercase tracking-widest font-semibold" style={{ color: "#8B2252" }}>
+            Quem criou este kit
+          </p>
+          <h2 className="text-3xl lg:text-4xl font-extrabold text-stone-800 leading-tight">
+            Um cientista que pesquisa bioativos —{" "}
+            <span style={{ color: "#8B2252" }}>e que precisa cuidar da própria saúde todos os dias.</span>
+          </h2>
+
+          <p className="text-stone-600 text-lg leading-relaxed">
+            Convivo com doença renal crônica hereditária, diabetes e hipertensão. São três condições
+            que transformam cada refeição numa equação. Mas sou também Engenheiro Agrônomo e Doutor
+            em Genética e Melhoramento de Plantas — passei 15 anos estudando o que torna cada
+            ingrediente o que ele é.
+          </p>
+
+          <p className="text-stone-600 leading-relaxed">
+            A epicatequina do cacau que aparece nos artigos de cardiologia está no brownie que meus
+            filhos comem no domingo. A curcumina que eu estudava pela ação anti-inflamatória está no
+            pudim funcional da Anne. O ácido elágico do morango, as antocianinas do açaí, a
+            beta-glucana da aveia — cada composto que eu identifiquei em pesquisa virou uma receita
+            na nossa cozinha.
+          </p>
+
+          <div
+            className="rounded-xl p-5 border-l-4"
+            style={{ borderColor: "#8B2252", backgroundColor: "#FFFFFF" }}
+          >
+            <div className="flex items-start gap-3">
+              <FaUtensils className="text-xl mt-1 shrink-0" style={{ color: "#8B2252" }} />
+              <p className="text-stone-600 leading-relaxed">
+                <strong className="text-stone-800">Anne Carolina, minha esposa, é co-autora.</strong>{" "}
+                Ela trouxe o que eu não tenho: o olhar prático de quem organiza uma casa real com
+                quatro crianças, restrições alimentares variadas, e o tempo limitado de quem acorda
+                todo dia antes das seis da manhã. A ciência sem a prática é teoria. A prática sem a
+                ciência é tentativa.
+              </p>
+            </div>
+          </div>
+
+          {/* Credenciais */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4">
+            {credentials.map((cred, i) => (
+              <div
+                key={i}
+                className="flex items-center gap-3 bg-white/70 backdrop-blur-sm rounded-lg px-4 py-3 shadow-sm"
+              >
+                <cred.icon className="text-lg shrink-0" style={{ color: "#8B2252" }} />
+                <span className="text-sm text-stone-700 font-medium">{cred.text}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default AuthoritySection;

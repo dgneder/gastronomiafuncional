@@ -1,38 +1,41 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const LGPD: React.FC = () => {
-  const [visible, setVisible] = useState(false);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
-    const seen = localStorage.getItem("lgpd_doce_sem_culpa");
-    if (!seen) {
-      const timer = setTimeout(() => setVisible(true), 2000);
-      return () => clearTimeout(timer);
+    const consent = localStorage.getItem("lgpd_consent_doce");
+    if (!consent) {
+      setTimeout(() => setShow(true), 2000);
     }
   }, []);
 
   const handleAccept = () => {
-    localStorage.setItem("lgpd_doce_sem_culpa", "1");
-    setVisible(false);
+    localStorage.setItem("lgpd_consent_doce", "accepted");
+    setShow(false);
   };
 
-  if (!visible) return null;
+  if (!show) return null;
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-4 sm:max-w-sm z-50 bg-white rounded-2xl shadow-2xl border border-rose-100 p-4">
-      <p className="text-xs text-gray-600 mb-3">
-        Utilizamos cookies para melhorar sua experiência. Ao continuar, você concorda com nossa{" "}
-        <a href="/politica-de-privacidade" className="underline" style={{ color: "#8B2252" }}>Política de Privacidade</a>.
-      </p>
-      <button
-        onClick={handleAccept}
-        className="w-full py-2 text-sm font-bold text-white rounded-xl"
-        style={{ backgroundColor: "#8B2252" }}
-      >
-        Entendi
-      </button>
+    <div className="fixed bottom-0 left-0 right-0 z-50 p-4">
+      <div className="max-w-4xl mx-auto bg-stone-900 text-white rounded-2xl p-5 shadow-2xl flex flex-col sm:flex-row items-center gap-4">
+        <p className="text-sm text-stone-300 grow">
+          Utilizamos cookies para melhorar sua experiência. Ao continuar navegando, você concorda com nossa{" "}
+          <a href="/privacidade" className="underline hover:text-amber-300" style={{ color: "#D4A04A" }}>
+            Política de Privacidade
+          </a>.
+        </p>
+        <button
+          onClick={handleAccept}
+          className="px-6 py-2 rounded-lg text-sm font-semibold whitespace-nowrap transition-colors text-white"
+          style={{ background: "linear-gradient(135deg, #8B2252, #6B1A3F)" }}
+        >
+          Aceitar
+        </button>
+      </div>
     </div>
   );
 };
